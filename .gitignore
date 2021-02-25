@@ -1,0 +1,10 @@
+
+.DS_Store
+
+/config/nvim/plugged/
+/config/nvim/rplugin/
+/config/nvim/undo/
+
+/bin/exercism
+/bin/pob
+/bin/godot

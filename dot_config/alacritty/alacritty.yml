@@ -1,0 +1,127 @@
+
+window:
+  padding:
+    x: 6
+    y: 6
+
+    dynamic_padding: true
+
+
+    # Disable border and title bar
+    decorations: none
+font:
+    ligatures: true
+    normal:
+        family: Operator Mono SSm Lig book
+        style:  Regular
+        
+    # bold:
+    #     family: Operator Mono SSm Lig Bold
+    #     style:  Bold
+    italic:
+        family: Operator Mono SSm Lig book
+        style:  Italic
+
+    # Point size of the font
+    size: 8
+    #9.9 with col li
+bell:
+  animation: EaseOutExpo
+  duration: 0
+  color: '0xffffff'
+
+# Background opacity
+#
+# Window opacity as a floating point number from `0.0` to `1.0`.
+# The value `0.0` is completely transparent and `1.0` is opaque.
+# 0.8 was my value before
+background_opacity: 0.93
+offset:
+    x: 1
+    y: 1
+draw_bold_text_with_bright_colors: true
+# ...
+
+# Colors (Dracula)
+# Colors (Dracula PRO - Van Helsing)
+colors:
+  # Default colors
+  primary:
+    background: '0x000000'
+    foreground: '0xffffff'
+
+  # Colors the cursor will use if `custom_cursor_colors` is true
+  cursor:
+    text: '0x000000'
+    cursor: '0xffffff'
+
+  # Normal colors
+  normal:
+    black:   '0x1a1e1d'
+    red:     '0xdbabeb'
+    green:   '0x9c75dd'
+    yellow:  '0x7fa7af'
+    blue:    '0x64629f'
+    magenta: '0x5f4c65'
+    cyan:    '0xa9d1df'
+    white:   '0xf0f4ef'
+
+  # Bright colors
+  bright:
+    black:   '0x5d6f74'
+    red:     '0xd95490'
+    green:   '0x63b0b0'
+    yellow:  '0xc0c0dd'
+    blue:    '0x5786bc'
+    magenta: '0x3f3442'
+    cyan:    '0x849da2'
+    white:   '0xf5f4ef'
+    
+  dim:
+    black:   '0x14151b'
+    red:     '0xff2222'
+    green:   '0x1ef956'
+    yellow:  '0xebf85b'
+    blue:    '0x4d5b86'
+    magenta: '0xff46b0'
+    cyan:    '0x59dffc'
+    white:   '0xe6e6d1'
+
+
+  # Indexed Colors
+  #
+  # The indexed colors include all colors from 16 to 256.
+  # When these are not set, they're filled with sensible defaults.
+  #
+  # Example:
+  #   `- { index: 16, color: '0xff00ff' }`
+  #
+  indexed_colors: []
+
+# Visual Bell
+# ...
+#
+
+
+cursor:
+    # Thickness of the cursor (number from `0.0` to `1.0`)
+    thickness: 0.10
+    # Vi mode cursor style
+    vi_mode_style: Block
+
+
+selection:
+    # When set to `true`, selected text will be copied to the primary
+    # clipboard.
+    save_to_clipboard: true
+
+mouse:
+    hide_when_typing: true
+    url:
+        # These are the modifiers that need to be held down for opening URLs
+        # when clicking
+        modifiers: Shift
+env:
+  TERM: xterm-256color
+
+live_config_reload: true
