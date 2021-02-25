@@ -1,0 +1,6 @@
+[language.python]
+command = "jedi-language-server"
+install = [["pip", "install", "jedi-language-server"]]
+always_prefer = true 
+synchronous_triggers = []
+num_server_instances = 2
