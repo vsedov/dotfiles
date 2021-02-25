@@ -1,0 +1,48 @@
+DP-0 HDMI-0 Height 1080=1030
+DP-0 HDMI-0 Width 1920=945
+DP-0 HDMI-0 XPosition=2885
+DP-0 HDMI-0 YPosition=40
+State=AAAA/wAAAAD9AAAAAAAAA7EAAAO1AAAABAAAAAQAAAAIAAAACPwAAAACAAAAAgAAAAEAAAAWAG0AYQBpAG4AVABvAG8AbABCAGEAcgEAAAAA/////wAAAAAAAAAAAAAAAgAAAAEAAAAiAGEAbgBuAG8AdABhAHQAaQBvAG4AVABvAG8AbABCAGEAcgEAAAAA/////wAAAAAAAAAA
+
+[Desktop Entry]
+FullScreen=false
+shouldShowMenuBarComingFromFullScreen=false
+shouldShowToolBarComingFromFullScreen=true
+
+[MainWindow]
+DP-0 HDMI-0 Height 1080=1030
+DP-0 HDMI-0 Width 1920=945
+DP-0 HDMI-0 XPosition=2885
+DP-0 HDMI-0 YPosition=40
+MenuBar=Disabled
+RestorePositionForNextInstance=false
+State=AAAA/wAAAAD9AAAAAAAAA7EAAAOoAAAABAAAAAQAAAAIAAAACPwAAAACAAAAAgAAAAEAAAAWAG0AYQBpAG4AVABvAG8AbABCAGEAcgEAAAAA/////wAAAAAAAAAAAAAAAgAAAAEAAAAiAGEAbgBuAG8AdABhAHQAaQBvAG4AVABvAG8AbABCAGEAcgEAAAAA/////wAAAAAAAAAA
+ToolBarsMovable=Disabled
+
+[MainWindow][Toolbar mainToolBar]
+IconSize=16
+
+[Recent Files]
+File1[$e]=$HOME/Desktop/PDF/Computer Science/Maths For Comp/Artificial Intelligence /Books/LearningOpenCV.pdf
+File10[$e]=$HOME/PersonalLearning/internet_services/Notes_2.pdf
+File2[$e]=$HOME/Desktop/PDF/Computer Science/stml-53-matousek-1.pdf
+File3[$e]=$HOME/Desktop/PDF/Japanese/Main Files/Genki - An Integrated Course in Elementary Japanese [Second Edition] (2011)/Genki I/Genki - An Integrated Course in Elementary Japanese I [Second Edition] (2011), WITH PDF BOOKMARKS!.pdf
+File4[$e]=$HOME/Desktop/PDF/First Year Past Papers/CS1801-16.pdf
+File5[$e]=$HOME/Desktop/PDF/Computer Science/Basics of Statistics - Isotalo.pdf
+File6[$e]=$HOME/Desktop/PDF/Computer Science/Foundations_Of_Data_Science_-_Blum_Hopcroft_Kannan_(2018).pdf
+File7[$e]=$HOME/Desktop/PDF/Japanese/Basic-Kanji-Book-Vol-1-2.pdf
+File8[$e]=$HOME/PersonalLearning/internet_services/Notes_1.pdf
+File9[$e]=$HOME/PersonalLearning/MF_Notes/Propositional_logic.pdf
+Name1[$e]=LearningOpenCV.pdf
+Name10[$e]=Notes_2.pdf
+Name2[$e]=stml-53-matousek-1.pdf
+Name3[$e]=Genki - An Integrated Course in Elementary Japanese I [Second Edition] (2011), WITH PDF BOOKMARKS!.pdf
+Name4[$e]=CS1801-16.pdf
+Name5[$e]=Basics of Statistics - Isotalo.pdf
+Name6[$e]=Foundations_Of_Data_Science_-_Blum_Hopcroft_Kannan_(2018).pdf
+Name7[$e]=Basic-Kanji-Book-Vol-1-2.pdf
+Name8[$e]=Notes_1.pdf
+Name9[$e]=Propositional_logic.pdf
+
+[Toolbar mainToolBar]
+IconSize=16
