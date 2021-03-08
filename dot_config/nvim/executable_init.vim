@@ -327,7 +327,7 @@ nnoremap <silent> <leader>bb :lua require'telescope'.extensions.dap.list_breakpo
 "nnoremap <silent> <leader>v :lua require'telescope'.extensions.dap.variables{}<CR>
 
 "This actually seems quite nice "
-nnoremap <Leader>v :lua require'plugins.telescope'.treesitter()<cr>"
+nnoremap <Leader>vv :lua require'plugins.telescope'.treesitter()<cr>"
 
 "Need to figure out what i want to do with this 
 nnoremap <silent> <leader>do :lua require'dap'.step_over()<CR>
