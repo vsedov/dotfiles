@@ -28,6 +28,7 @@ source  $HOME/.config/nvim/config/vista.vim
 source  $HOME/.config/nvim/config/Vimjup.vim
 source  $HOME/.config/nvim/config/snipdebugger.vim
 
+source  $HOME/.config/nvim/config/breakhabits.vim
 
 "ColorScheme"
 if (has("termguicolors"))
@@ -457,3 +458,5 @@ require('bqf').setup({
     }
 })
 EOF
+
+
