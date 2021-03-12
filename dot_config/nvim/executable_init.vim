@@ -221,6 +221,8 @@ lua << EOF
   require('treesitter')
   require('sagastuff')
   require('quickfix-bar')
+  require("telescope").load_extension("frecency")
+
 
 EOF
 " geometry configuration
