@@ -46,7 +46,8 @@ exec_always --no-startup-id picom --experimental-backends  --vsync  --config ~/.
 #Config will have to change after third monitor . 
 exec_always --no-startup-id ~/Documents/Wallpaper/./wallpaper-wrap.sh 
 exec_always --no-startup-id ~/.config/polybar/launch.sh
-
+exec_always --no-startup-id ibus-daemon &
+# I tend to use ibus for languages when learning japanese , so its quite nice
 
 
 exec_always --no-startup-id i3-msg "workspace $ws1; append_layout /home/viv/.i3/workspace-main.json"
