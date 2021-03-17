@@ -29,12 +29,13 @@ source  $HOME/.config/nvim/config/undotree.vim
 source  $HOME/.config/nvim/config/indent.vim
 source  $HOME/.config/nvim/config/vista.vim
 source  $HOME/.config/nvim/config/Vimjup.vim
-
 source  $HOME/.config/nvim/config/snipdebugger.vim
+
 source  $HOME/.config/nvim/config/breakhabits.vim
 source  $HOME/.config/nvim/config/animation.vim
 source  $HOME/.config/nvim/config/loading_java.vim
-
+source  $HOME/.config/nvim/config/switch.vim
+source  $HOME/.config/nvim/config/regesterlikepeeklookupwhynot.vim
 
 " theicfire .vimrc tips
 " With a map leader it's possible to do extra key combinations
@@ -82,6 +83,8 @@ lua << EOF
   require('sagastuff')
   require('quickfix-bar')
   require("telescope").load_extension("frecency")
+  require('pattern')
+
 EOF
 " geometry configuration
 lua require('nvim-peekup.config').geometry["height"] = 0.8
@@ -116,4 +119,6 @@ command! Nani echo synIDattr(synID(line('.'), col('.'), 1), 'name')
 map <leader>hhi :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
       \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
       \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
+
 

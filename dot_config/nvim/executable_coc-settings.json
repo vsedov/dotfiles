@@ -20,6 +20,34 @@
   "coc.preferences.extensionUpdateCheck": "daily",
   "coc.preferences.snippetStatusText": "",
   "coc.preferences.formatOnType": false,
+  
+  "suggest.completionItemKindLabels": {
+    "keyword": " [keyword]",
+    "variable": "識[variable]",
+    "value": "\uf89f [value]",
+    "operator": "\u03a8 [operator]",
+    "function": " [function]",
+    "reference": "\ufa46 [reference]",
+    "constant": "識[constant]",
+    "method": " [method]",
+    "struct": "\ufb44 [struct]",
+    "class": "\uf0e8 [class]",
+    "interface": "\uf417 [interface]",
+    "text": "\ue612 [text]",
+    "enum": "\uf435 [enum]",
+    "enumMember": "\uf02b [enumMember]",
+    "module": "\uf40d [module]",
+    "color": "\ue22b [color]",
+    "property": " [property]",
+    "field": "\uf9be[field]",
+    "unit": "\uf475 [unit]",
+    "event": "\ufacd [event]",
+    "file": "\uf723 [file]",
+    "folder": "\uf114 [folder]",
+    "snippet": "\ue60b [snippet]",
+    "typeParameter": "\uf728 [type]",
+    "default": "\uf29c [default]"
+  },  
 
   "diagnostic.enable":              true,
 
@@ -44,6 +72,7 @@
    "jedi.startupMessage":true,
    "jedi.trace.server":true,
    "jedi.jediSettings.autoImportModules":[
+    // Machine learning modules i use allot are pain to load , i have them load on any python file just in case . 
       "numpy",
       "torch",
       "torchvision"
@@ -57,8 +86,6 @@
 
 
   "session.directory": "~/.vimbackupfile",
-
-
 
    "diagnostic-languageserver.formatFiletypes":{
       "python":[
@@ -117,4 +144,6 @@
       "description":"gitignore completely replace the exists templates (key and value format)"
   },
   "rpc.lowerDetailsViewing":"Viewing {filename}",
+  "rpc.idleText":"The One True Text Editor",
+  "rpc.smallImage":"The One True Text Editor",
 }

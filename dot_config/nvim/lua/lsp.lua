@@ -2,7 +2,9 @@
 local lspconfig = require('lspconfig')
 local lsp_status = require("lsp-status")
 local utils = require("boo.utils")
-local lsp_status = require("boo.lsp_status")
+
+
+
 
 local api = vim.api
 
@@ -14,8 +16,6 @@ local api = vim.api
 local custom_on_attach_num = function(client, bufnr)
   
   -- This is the new thing added
-  lsp_status.on_attach(client)
-
   local opts = {
 		noremap=true,
 		silent=true,

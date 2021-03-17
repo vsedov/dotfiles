@@ -200,7 +200,7 @@ Plug 'wakatime/vim-wakatime'
 
 "Plug 'neomake/neomake'
 " looking
-"Plug 'andweeb/presence.nvim' - i honestly prefer the coc extention .
+"Plug 'andweeb/presence.nvim' 
 Plug 'kevinhwang91/nvim-bqf'
 Plug 'glepnir/dashboard-nvim'
 
@@ -227,7 +227,6 @@ Plug  'KeitaNakamura/tex-conceal.vim', {'for': 'tex'} " for VimPlug
 "Plug 'nathunsmitty/nvim-ale-diagnostic'
 
 "Novilities"
-"Plug 'rmagatti/alternate-toggler'  
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 Plug 'tpope/vim-sensible'
 Plug 'jdhao/better-escape.vim'
@@ -235,13 +234,16 @@ Plug '/home/viv/.vim/plugged/dracula_pro/'
 "Plug 'kassio/neoterm'
 Plug 'metakirby5/codi.vim'
 Plug 'junegunn/goyo.vim'
+Plug 'tversteeg/registers.nvim'
 
 
 
 ""Side bar Manager - looks cool
 Plug 'https://github.com/brglng/vim-sidebar-manager'
 
-
+"Replace thsi with Plug 'rmagatti/alternate-toggler' once it works . "
+Plug 'rmagatti/alternate-toggler'
+Plug 'zegervdv/nrpattern.nvim'
 "Because im lazy , i want sudo acccess sometimes
 Plug 'https://github.com/lambdalisue/suda.vim.git'
 

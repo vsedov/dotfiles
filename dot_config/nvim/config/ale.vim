@@ -47,7 +47,8 @@ let g:ale_linters = {
   \   'vim': ['vint'],
   \   'yaml': ['yamllint'],
   \   'openapi': ['yamllint', 'ibm-validator'],
-  \   'mail': ['proselint', 'write-good']
+  \   'mail': ['proselint', 'write-good'],
+  \   'prolog':['swipl']
 \}
 
 let g:ale_fixers = {
