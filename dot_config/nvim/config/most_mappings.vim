@@ -6,9 +6,9 @@
 "lua require('night-owl')
 "lua require('night-owl')
 "colorscheme dogrun
-
-
+hi clear
 lua require'boo-colorscheme'.use{}
+
 "colorscheme dracula_pro_van_helsing
 "colorscheme dracula
 

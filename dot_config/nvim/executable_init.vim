@@ -80,11 +80,9 @@ lua << EOF
   require('dap-python').test_runner = 'pytest'
   require('kommentary.config').use_extended_mappings()
   require('treesitter')
-  require('sagastuff')
-  require('quickfix-bar')
   require("telescope").load_extension("frecency")
   require('pattern')
-
+  require('sagastuff')
 EOF
 " geometry configuration
 lua require('nvim-peekup.config').geometry["height"] = 0.8
@@ -122,3 +120,5 @@ map <leader>hhi :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '>
 
 
 
+""  require('quickfix-bar') - I think this is causing issues but eh cuase currently i sunkown 
+"

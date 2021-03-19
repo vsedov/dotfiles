@@ -132,9 +132,19 @@ lspconfig.jdtls.setup{
 
 
 lspconfig.jedi_language_server.setup{
-	on_attach = custom_on_attach_num,
+	on_attach=on_attach_vim,
     cmd = { "jedi-language-server" },
     filetypes = { "python" },	
+    initializationOptions = {
+    	diagnostics={
+		      enable= false,
+		      didOpen= false,
+		      didChange= false,
+		      didSave= false,
+    	},
+
+    },
+  
 
 }
 

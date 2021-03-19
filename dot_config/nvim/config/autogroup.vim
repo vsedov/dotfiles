@@ -54,9 +54,11 @@ augroup auto_read
                 \ | echo "File changed on disk. Buffer reloaded!" | echohl None
 augroup END
 "}
+ 
+let g:lens#disabled_filetypes = ['CHADTree','chadtree','qf','nerdtree']
 
 augroup lens
-  let g:lens#disabled_filetypes = ['CHADTree','chadtree','qf']
+  let g:lens#disabled_filetypes = ['CHADTree','chadtree','qf','nerdtree']
   let g:lens#height_resize_min = 5
   let g:lens#width_resize_max = 80
 
@@ -76,3 +78,11 @@ augroup AutoRelativeLineNums
 
   au InsertLeave * set relativenumber
 augroup END
+
+
+
+
+
+
+
+

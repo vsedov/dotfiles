@@ -23,17 +23,8 @@ Plug 'szymonmaszke/vimpyter'
 
 "Color Leave me alone ok , i like colours .
 Plug 'wadackel/vim-dogrun'
-Plug 'drewtempelmeyer/palenight.vim'
-Plug 'bluz71/vim-moonfly-colors'
-Plug 'bluz71/vim-nightfly-guicolors'
-Plug 'tjdevries/colorbuddy.nvim'
-Plug 'Julpikar/night-owl.nvim'
 Plug 'rockerBOO/boo-colorscheme-nvim', { 'branch': 'main' }
-Plug 'glepnir/zephyr-nvim'
-Plug 'fneu/breezy'  " Exactly like breeze theme for ktexteditor
-Plug 'sainnhe/edge'
-Plug 'https://github.com/felipec/vim-felipec'
-
+Plug 'https://github.com/tjdevries/colorbuddy.nvim'
 "LSP stuff
 " Neovim's builtin LSP and treesitter impl. make it a very lightweight IDE
 
@@ -120,6 +111,7 @@ Plug 'theHamsta/nvim-dap-virtual-text'
 Plug 'michaelb/sniprun', {'do': 'bash install.sh'}
 Plug 'meain/vim-printer'
 
+
 "ANimation
 Plug 'camspiers/animate.vim'
 Plug 'camspiers/lens.vim'
@@ -163,9 +155,6 @@ Plug 'francoiscabrol/ranger.vim'
 Plug 'stsewd/isort.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'rbgrouleff/bclose.vim'
 
-
-Plug 'https://tildegit.org/sloum/gemini-vim-syntax.git'
-
 "sdsd
 
 " Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
@@ -184,12 +173,12 @@ Plug 'https://github.com/mbbill/undotree'
 Plug 'wsdjeg/FlyGrep.vim'  " awesome grep on the fly
 
 "This is outdata and moving it Komentary lua scripted"
-"Plug 'tpope/vim-commentary'  "comment-out by gc
 Plug 'b3nj5m1n/kommentary'
 
 
 "Plug 'epheien/termdbg'
-
+"For fun why note l"
+Plug 'https://github.com/alec-gibson/nvim-tetris.git'
 "Repl
 Plug 'tpope/vim-repeat'
 Plug 'pappasam/nvim-repl'
@@ -198,10 +187,10 @@ Plug 'honza/vim-snippets'
 "waka"
 Plug 'wakatime/vim-wakatime'
 
-"Plug 'neomake/neomake'
+
 " looking
 "Plug 'andweeb/presence.nvim' 
-Plug 'kevinhwang91/nvim-bqf'
+"Plug 'kevinhwang91/nvim-bqf'
 Plug 'glepnir/dashboard-nvim'
 
 
@@ -231,6 +220,7 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 
 Plug 'tpope/vim-sensible'
 Plug 'jdhao/better-escape.vim'
 Plug '/home/viv/.vim/plugged/dracula_pro/'
+
 "Plug 'kassio/neoterm'
 Plug 'metakirby5/codi.vim'
 Plug 'junegunn/goyo.vim'
