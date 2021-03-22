@@ -1,5 +1,10 @@
 local saga = require 'lspsaga'
+require('lspsaga.codeaction').code_action()
+require('lspsaga.codeaction').range_code_action()
+
+
 saga.init_lsp_saga {
+	
 	use_saga_diagnostic_sign = true, 
 	code_action_prompt = {
 	  enable = true,
@@ -14,4 +19,4 @@ saga.init_lsp_saga {
 }
 
 
---Add some changes here little error pissing me off .
+

@@ -190,7 +190,7 @@ Plug 'wakatime/vim-wakatime'
 
 " looking
 "Plug 'andweeb/presence.nvim' 
-"Plug 'kevinhwang91/nvim-bqf'
+Plug 'kevinhwang91/nvim-bqf'
 Plug 'glepnir/dashboard-nvim'
 
 

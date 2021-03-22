@@ -2,14 +2,30 @@
 local lspconfig = require('lspconfig')
 local lsp_status = require("lsp-status")
 local utils = require("boo.utils")
-
-
-
-
 local api = vim.api
 
 
 
+-- Fucking needed this >.< 
+vim.lsp.handlers['textDocument/publishDiagnostics']= function() end
+
+
+
+
+-- vim.lsp.handlers['textDocument/publishDiagnostics'] = 
+-- -- vim.lsp.with(
+-- --   vim.lsp.diagnostic.on_publish_diagnostics, {
+-- --     -- Enable underline, use default values
+-- --     underline = false,
+-- --     -- Enable virtual text, override spacing to 4
+-- --     virtual_text = false,
+-- --     signs = {
+-- --       enable = false,
+-- --       priority = 0
+-- --     },
+-- --     -- Disable a feature
+-- --     update_in_insert = false,
+-- -- })
 
 
 -- lsp_status.register_progress()
@@ -95,39 +111,30 @@ lspconfig.jdtls.setup{
   filetypes = {"java"}
 }
 
+
 -- lspconfig.pyls.setup{
 -- 	cmd = { "pyls" },
 -- 	on_attach=on_attach_vim,
---     settings = { pyls = { plugins = {
---     	pycodestyle =  { enabled = false },
---      	pylint =  { enabled = false },
---      	black = {enabled = true},
---      	pyflakes = {enabled = false}
---      } ,
---  	} ,
+--     settings = { 
+--     	pyls = { 
+--     		plugins = {
+-- 		    	pycodestyle =  {
+-- 		    	 enabled = false 
+-- 		    	},
+-- 		     	pylint =  {
+-- 		     	 enabled = false 
+-- 		     	},
+-- 		     	black = {
+-- 		     		enabled = true
+-- 		     	},
+-- 		     	pyflakes = {enabled = false},
+-- 		     	jedi_completion = {fuzzy = false}
+--     		 } ,
+--  		} ,
 --   },
+
 -- }
 
--- lspconfig.pyls_ms.setup{
--- 	on_attach=on_attach_vim,
--- 	cmd = { "mspyls" },
--- 	filetypes = { "python" },
---     init_options = {
---       analysisUpdates = false,
---       asyncStartup = false,
---       displayOptions = {},
--- 	  settings = {
--- 	  	python = {
--- 	        analysis = {
--- 	          disabled = {"undefined-variable"},
--- 	          errors = {"unknown-parameter-name"},
--- 	          info = {"too-many-function-arguments", "parameter-missing"}
--- 	        },
-
--- 	   },
--- 	},
--- },
--- }
 
 
 
@@ -136,6 +143,11 @@ lspconfig.jedi_language_server.setup{
     cmd = { "jedi-language-server" },
     filetypes = { "python" },	
     initializationOptions = {
+    	markupKindPreferred = null,
+    	completion={
+	      disableSnippets= false,
+	      resolveEagerly=false
+  	  },
     	diagnostics={
 		      enable= false,
 		      didOpen= false,
@@ -144,8 +156,6 @@ lspconfig.jedi_language_server.setup{
     	},
 
     },
-  
-
 }
 
 

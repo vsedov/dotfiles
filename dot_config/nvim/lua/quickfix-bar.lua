@@ -5,7 +5,6 @@ require('bqf').setup({
         auto_preview = false
         
         },
-        
-    
+       
 })
 
