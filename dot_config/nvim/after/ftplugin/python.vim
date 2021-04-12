@@ -9,7 +9,6 @@ setlocal go+=b
 filetype indent on
 filetype on
 filetype plugin on
-
 setlocal colorcolumn=90
 
 
