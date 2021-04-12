@@ -13,5 +13,5 @@ let g:chadtree_settings = {
 \ }
 
 autocmd FileType CHADtree setlocal number relativenumber
-nnoremap <leader>l <cmd>call setqflist([])<cr>
+
 let g:NERDTreeWinSize=10

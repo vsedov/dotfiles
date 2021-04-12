@@ -94,9 +94,6 @@ Plug 'nvim-telescope/telescope-frecency.nvim'
 Plug 'https://github.com/tami5/sql.nvim'
 
 
-""Neuron Note taking didint work ,.
-Plug 'oberblastmeister/neuron.nvim'
-Plug 'nvim-lua/popup.nvim'
 
 
 ""Vim be good game ?
@@ -106,6 +103,9 @@ Plug 'ThePrimeagen/vim-be-good'
 "Debugging
 Plug 'nvim-telescope/telescope-dap.nvim'
 Plug 'mfussenegger/nvim-dap'
+"Ui for this"
+Plug "rcarriga/nvim-dap-ui"
+
 Plug 'mfussenegger/nvim-dap-python'
 Plug 'theHamsta/nvim-dap-virtual-text'
 Plug 'michaelb/sniprun', {'do': 'bash install.sh'}
@@ -132,7 +132,6 @@ Plug 'airblade/vim-gitgutter'  " show git changes to files in gutter
 Plug 'voldikss/vim-floaterm'
 
 "Discord rpc"
-
 
 
 
@@ -224,8 +223,12 @@ Plug '/home/viv/.vim/plugged/dracula_pro/'
 "Plug 'kassio/neoterm'
 Plug 'metakirby5/codi.vim'
 Plug 'junegunn/goyo.vim'
-Plug 'tversteeg/registers.nvim'
 
+  " Rust syntax rules
+  Plug 'rust-lang/rust.vim'
+
+   " Elixir syntax rules
+  Plug 'elixir-editors/vim-elixir'
 
 
 ""Side bar Manager - looks cool
@@ -234,9 +237,16 @@ Plug 'https://github.com/brglng/vim-sidebar-manager'
 "Replace thsi with Plug 'rmagatti/alternate-toggler' once it works . "
 Plug 'rmagatti/alternate-toggler'
 Plug 'zegervdv/nrpattern.nvim'
+Plug 'edluffy/specs.nvim'
+
+
 "Because im lazy , i want sudo acccess sometimes
 Plug 'https://github.com/lambdalisue/suda.vim.git'
 
+Plug 'iqxd/vim-mine-sweeping'
+
+
+Plug 'nacro90/numb.nvim'
 
 
 call plug#end()

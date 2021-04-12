@@ -79,7 +79,7 @@
    ],
    "jedi.executable.command":"jedi-language-server",
    "jedi.completion.disableSnippets":false,
-   "jedi.diagnostics.enable":false,
+   "jedi.diagnostics.enable":true,
    "jedi.diagnostics.didOpen":false,
    "jedi.diagnostics.didChange":false,
    "jedi.diagnostics.didSave":true,
