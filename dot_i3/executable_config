@@ -275,6 +275,7 @@ assign [class = "Franz"] $ws6
 
 assign [class = "Overleaf Desktop"] $ws5
 assign [class = "Pulseeffects"] $ws5
+assign [class = "lampe-gtk"] $ws5
 assign [class = "okular"] $ws7
 assign [class = "YouTube Music"] $ws8
 
@@ -374,6 +375,7 @@ exec /usr/bin/franz
 
 exec  "sh -c 'sleep 10; exec youtube-music-bin'"
 exec  "sh -c 'sleep 15; exec pulseeffects'"
+exec  "sh -c 'sleep 15; exec lampe-gtk'"
 exec  "sh -c 'sleep 15; exec whatsapp-nativefier-d40211'"
 
 
