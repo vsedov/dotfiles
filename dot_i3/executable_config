@@ -266,7 +266,7 @@ bindsym $mod+Shift+F5 move container to workspace $ws15
 
 #assign apps to workspaces  
 assign [class = "urxvt"] $ws1
-assign [class = "waterfox-current"] $ws2
+assign [class = "Binance"] $ws2
 assign [class = "Subl"] $ws3
 assign [class = "discord"] $ws4
 assign [class = "lightcord"] $ws4
@@ -275,7 +275,7 @@ assign [class = "Franz"] $ws6
 
 assign [class = "Overleaf Desktop"] $ws5
 assign [class = "Pulseeffects"] $ws5
-assign [class = "lampe-gtk"] $ws5
+assign [class = "Lampe-gtk"] $ws5
 assign [class = "okular"] $ws7
 assign [class = "YouTube Music"] $ws8
 
@@ -372,11 +372,12 @@ exec /usr/bin/waterfox-current
 exec /usr/bin/lightcord
 exec /usr/bin/subl
 exec /usr/bin/franz
+exec /usr/bin/lampe-gtk
+exec /usr/bin/lampe-gtk
+exec /usr/bin/binance
 
 exec  "sh -c 'sleep 10; exec youtube-music-bin'"
 exec  "sh -c 'sleep 15; exec pulseeffects'"
-exec  "sh -c 'sleep 15; exec lampe-gtk'"
-exec  "sh -c 'sleep 15; exec whatsapp-nativefier-d40211'"
 
 
 
