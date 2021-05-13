@@ -52,9 +52,9 @@ vim.g.UltiSnipsJumpBackwardTrigger = "<C-k>"
 end
 
 
-function config.run()
-  vim.g.run_split = 'right'
-end
+-- function config.run()
+--   vim.g.run_split = 'right'
+-- end
 
 
 
@@ -143,8 +143,6 @@ function config.telescope()
 
   require('telescope').load_extension('fzy_native')
   require('telescope').load_extension('dotfiles')
-  require('telescope').load_extension('dap')
-
 
 end
 
@@ -156,14 +154,13 @@ function config.neorunner()
   vim.g.runner_c_options = '-std=c99 -Wall'
   vim.g.runner_cpp_options = '-std=c++11 -Wall'
 
-
 end
 
 function config.code_runner()
   require('code_runner').setup {
     term = {
       position = "vert",
-      size = 30
+      size = 60
     },
     fterm = {
       height = 0.7,
@@ -171,6 +168,7 @@ function config.code_runner()
     }
   }
 end
+
 --/bin/sh: line 1: ./home/viv/Anothertest/cstuffpointer: No such file or directory
 
 
@@ -212,6 +210,7 @@ end
 
 
 -- end
+
 
 function config.vim_sonictemplate()
   vim.g.sonictemplate_postfix_key = '<C-,>'

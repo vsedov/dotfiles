@@ -17,9 +17,6 @@ filetype plugin on
 setlocal colorcolumn=90
 hi Comment gui=italic
 
-setlocal foldexpr=nvim_treesitter#foldexr()  " disabled until it works
-"setlocal foldmethod=expr
-
 
 "highlight ColorColumn guibg=Blackhi Normal guibg=NONE ctermbg=NONE
 
@@ -29,7 +26,9 @@ let g:runner_python_options = ''
 let b:ale_fixers = ['nayvy#ale_fixer', 'black', 'isort']
 let b:ale_linters = ['black', 'pylint']
 
+set foldmethod=expr
 
+set foldexpr=nvim_treesitter#foldexpr()
 
 
 

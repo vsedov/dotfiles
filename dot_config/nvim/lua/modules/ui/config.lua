@@ -54,6 +54,13 @@ function config.minmin()
   end
 
 end
+
+function  config.undo()
+  vim.g.undotree_WindowLayout = 3
+end
+
+
+
 function config.toggleterm()
 
 
