@@ -1,34 +1,28 @@
-if &encoding != 'utf-8'
-    setlocal encoding=utf-8              "Necessary to show Unicode glyphs
-endif
 
 
-setlocal encoding=utf-8
-setlocal tabstop=4
-setlocal shiftwidth=4
-setlocal expandtab
-setlocal autoindent
-setlocal smarttab
-setlocal go+=b
-setlocal conceallevel=1
 filetype indent on
 filetype on
 filetype plugin on
+
+
+
+
+
 setlocal colorcolumn=90
-hi Comment gui=italic
 
-
-"highlight ColorColumn guibg=Blackhi Normal guibg=NONE ctermbg=NONE
 
 let g:runner_python_ex = 'python3'
 let g:runner_python_options = ''
 
-let b:ale_fixers = ['nayvy#ale_fixer', 'black', 'isort']
-let b:ale_linters = ['black', 'pylint']
+let b:ale_fixers = ['nayvy#ale_fixer', 'black']
+let b:ale_linters = ['pylint']
 
-set foldmethod=expr
 
-set foldexpr=nvim_treesitter#foldexpr()
+let g:ale_disable_lsp = 1
+
+let g:test#strategy = "dispatch"
+let g:test#python#pytest#options = "--disable-warnings --color=yes"
+let g:test#python#runner = "pytest"
 
 
 
