@@ -2,11 +2,21 @@
 
 NVIM setup :
 
-- Uses Coc + Nvim 0.5 LSP for other plugins , this is still a work in process and 
-    still being converted to lsp -> lua config as well. I will update this later on .
--  
-- Uses theme from boo - which is quite nice and clean . Main plugins that are used is vista , coc lspsaga - pythonic based neovim setup 
-- New version will be up soon 
+- Full nvim lsp with ALE 
+- When Lsp has a better way to add more diagnostics , i will remove ale .
+- Nvim setup is originally from https://github.com/glepnir - he created most of
+  it this is merely a fork with some modifications
+
+  -Features
+  --
+  - Undo tree
+  - Vista 
+  - Nvim Lsp - Python C and java Main config others have been set too . 
+  - nvim lsp diagnostics is rerouted to ALE 
+  - Debugger included C , Python setup 
+  - Autformat and autorunners . - Ale Sniprun and so on . - ALE+nvim lsp 
+  - Refer to the main plugin withjin completion for extra stuff
+  - Telescope has a few custom commands like variables 
 
 
 ![Linux - Neofetch](https://i.postimg.cc/GtHkJj3B/example.png)
