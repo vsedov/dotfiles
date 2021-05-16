@@ -20,33 +20,35 @@ tools['b3nj5m1n/kommentary'] = {
 }
 
 
---Add history one to find previous history and keybinds .
-
-
 tools['relastle/vim-nayvy'] ={
 
   config = function ()
     vim.g.nayvy_import_config_path = '$HOME/nayvy.py'
   end
 }
-
-
--- Good way for me to record how much or what i code in mostly  
 tools['wakatime/vim-wakatime'] ={
 }
-
-
 
 --Moving stuff 
 tools['camspiers/animate.vim'] ={
 }
 
+tools['psliwka/vim-smoothie'] ={
+}
 
 
 
 
 
 tools['euclidianAce/BetterLua.vim'] = {}
+
+tools['nacro90/numb.nvim'] = {
+  config = function ()
+  require('numb').setup()  end
+}
+
+
+
 
 
 tools['liuchengxu/vista.vim'] = {
@@ -64,25 +66,8 @@ tools['brooth/far.vim'] = {
 tools['iamcco/markdown-preview.nvim'] = {
   ft = 'markdown',
   config = function ()
-    vim.g.mkdp_auto_start = 1
+    vim.g.mkdp_auto_start = 0
   end
 }
-
-tools['nacro90/numb.nvim'] = {
-  config = function ()
-  require('numb').setup()  end
-}
-
-
-tools['jbyuki/nabla.nvim'] = {
-}
-
-
-
-
-
-
-
-
 
 return tools

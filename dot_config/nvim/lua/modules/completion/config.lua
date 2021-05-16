@@ -4,9 +4,35 @@ function config.nvim_lsp()
   require('modules.completion.lspconfig')
 end
 
+
+function config.bqf()
+
+  require('bqf').setup({
+      auto_enable = true,
+      preview = {
+          auto_preview = false,
+          win_height = 12,
+          win_vheight = 12,
+          delay_syntax = 80,
+          border_chars = {'┃', '┃', '━', '━', '┏', '┓', '┗', '┛', '█'}
+      },
+      func_map = {
+          vsplit = '',
+          ptogglemode = 'z,',
+          stoggleup = ''
+      }
+  })
+end
+
+
+function config.ultisnipsconf()
+vim.g.UltiSnipsExpandTrigger = "<C-s>"      
+vim.g.UltiSnipsJumpForwardTrigger = "<C-j>" 
+vim.g.UltiSnipsJumpBackwardTrigger = "<C-k>"
+end
+
+
 function config.nvim_compe()
-
-
   require'compe'.setup {
     enabled = true;
     autocomplete = true,
@@ -43,45 +69,70 @@ function config.nvim_compe()
     }
   }
 end
-
-
-function config.ultisnipsconf()
-vim.g.UltiSnipsExpandTrigger = "<C-s>"      
-vim.g.UltiSnipsJumpForwardTrigger = "<C-j>" 
-vim.g.UltiSnipsJumpBackwardTrigger = "<C-k>"
-end
-
-
--- function config.run()
---   vim.g.run_split = 'right'
--- end
-
-
-
-
-function config.bqf()
-
-  require('bqf').setup({
-      auto_enable = true,
-      preview = {
-          auto_preview = false,
-          win_height = 12,
-          win_vheight = 12,
-          delay_syntax = 80,
-          border_chars = {'┃', '┃', '━', '━', '┏', '┓', '┗', '┛', '█'}
-      },
-      func_map = {
-          vsplit = '',
-          ptogglemode = 'z,',
-          stoggleup = ''
-      }
-  })
-end
-
-
 function config.vim_vsnip()
   vim.g.vsnip_snippet_dir = os.getenv('HOME') .. '/.config/nvim/snippets'
 end
+
+function config.telescope()
+  if not packer_plugins['plenary.nvim'].loaded then
+    vim.cmd [[packadd plenary.nvim]]
+    vim.cmd [[packadd popup.nvim]]
+    vim.cmd [[packadd telescope-fzy-native.nvim]]
+  end
+
+
+
+
+  require('telescope.main')
+  
+
+
+  require('telescope').load_extension('fzy_native')
+  require('telescope').load_extension('dotfiles')
+
+end
+
+function config.vim_sonictemplate()
+  vim.g.sonictemplate_postfix_key = '<C-,>'
+  vim.g.sonictemplate_vim_template_dir = os.getenv("HOME").. '/.config/nvim/template'
+end
+
+function config.smart_input()
+  require('smartinput').setup {
+    ['go'] = { ';',':=',';' }
+  }
+end
+
+function config.emmet()
+  vim.g.user_emmet_complete_tag = 0
+  vim.g.user_emmet_install_global = 0
+  vim.g.user_emmet_install_command = 0
+  vim.g.user_emmet_mode = 'i'
+end
+
+
+function config.neorunner()
+
+  vim.g.runner_c_compiler = 'gcc'
+  vim.g.runner_cpp_compiler = 'g++'
+  vim.g.runner_c_options = '-std=c99 -Wall'
+  vim.g.runner_cpp_options = '-std=c++11 -Wall'
+
+end
+
+function config.code_runner()
+  require('code_runner').setup {
+    term = {
+      position = "vert",
+      size = 60
+    },
+    fterm = {
+      height = 0.7,
+      width = 0.7
+    }
+  }
+end
+
 function config.sniprun()
 
     require'sniprun'.setup({
@@ -109,6 +160,11 @@ function config.sniprun()
 end
 
 
+
+function config.doge()
+  vim.g.doge_doc_standard_python = 'numpy'
+end 
+
 function config.vimtex()
 
   vim.g.tex_conceal="abdgm"
@@ -127,105 +183,7 @@ function config.vimtex()
 
 end
 
-function config.telescope()
-  if not packer_plugins['plenary.nvim'].loaded then
-    vim.cmd [[packadd plenary.nvim]]
-    vim.cmd [[packadd popup.nvim]]
-    vim.cmd [[packadd telescope-fzy-native.nvim]]
-  end
 
 
-
-
-  require('telescope.main')
-  
-
-
-  require('telescope').load_extension('fzy_native')
-  require('telescope').load_extension('dotfiles')
-
-end
-
-
-function config.neorunner()
-
-  vim.g.runner_c_compiler = 'gcc'
-  vim.g.runner_cpp_compiler = 'g++'
-  vim.g.runner_c_options = '-std=c99 -Wall'
-  vim.g.runner_cpp_options = '-std=c++11 -Wall'
-
-end
-
-function config.code_runner()
-  require('code_runner').setup {
-    term = {
-      position = "vert",
-      size = 60
-    },
-    fterm = {
-      height = 0.7,
-      width = 0.7
-    }
-  }
-end
-
---/bin/sh: line 1: ./home/viv/Anothertest/cstuffpointer: No such file or directory
-
-
-
--- function config.debug_ui()
---   require("dapui").setup({
---     icons = {
---       expanded = "⯆",
---       collapsed = "⯈",
---       circular = "↺"
---     },
---     mappings = {
---       expand = "<CR>",
---       open = "o",
---       remove = "d"
---     },
---     sidebar = {
---       elements = {
---         -- You can change the order of elements in the sidebar
---         "scopes",
---         "stacks",
---         "watches"
---       },
---       width = 40,
---       position = "left" -- Can be "left" or "right"
---     },
---     tray = {
---       elements = {
---         "repl"
---       },
---       height = 10,
---       position = "bottom" -- Can be "bottom" or "top"
---     },
---     floating = {
---       max_height = nil, -- These can be integers or a float between 0 and 1.
---       max_width = nil   -- Floats will be treated as percentage of your screen.
---     },
---   })
-
-
--- end
-
-
-function config.vim_sonictemplate()
-  vim.g.sonictemplate_postfix_key = '<C-,>'
-  vim.g.sonictemplate_vim_template_dir = os.getenv("HOME").. '/.config/nvim/template'
-end
-
-function config.emmet()
-  vim.g.user_emmet_complete_tag = 0
-  vim.g.user_emmet_install_global = 0
-  vim.g.user_emmet_install_command = 0
-  vim.g.user_emmet_mode = 'i'
-end
-
-function config.doge()
-  vim.g.doge_doc_standard_python = 'numpy'
-end 
 
 return config

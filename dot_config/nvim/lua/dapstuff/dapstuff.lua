@@ -4,6 +4,9 @@ local HOME = os.getenv('HOME')
 -- Need to figure out how to do java 
 
 
+require('dap-python').setup('/usr/bin/python3')
+require('dap-python').test_runner = 'pytest'
+
 
 
 vim.g['test#python#pytest#executable'] = 'pytest'
