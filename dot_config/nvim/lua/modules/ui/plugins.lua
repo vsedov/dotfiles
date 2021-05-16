@@ -14,9 +14,6 @@ ui['folke/tokyonight.nvim'] = {
 
 }
 
-ui['justinmk/vim-syntax-extra'] = {
-
-}
 
 
 

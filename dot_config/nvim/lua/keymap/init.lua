@@ -9,7 +9,7 @@ local plug_map = {
     ["i|<TAB>"]         = map_cmd('v:lua.tab_complete()'):with_expr():with_silent(),
     ["i|<S-TAB>"]       = map_cmd('v:lua.s_tab_complete()'):with_silent():with_expr(),
     ["i|<CR>"]          = map_cmd([[compe#confirm('<CR>')]]):with_noremap():with_expr():with_nowait(),
-    
+
     -- I rely on utilssnips decently , this is required 
   --   ["n|<CR>"]      = map_cmd('g:UltiSnipsExpandTrigger'):with_noremap():with_expr():with_nowait(),
   --   ["n|<Tab>"]      = map_cmd('g:UltiSnipsJumpForwardTrigger'):with_expr():with_silent(),
@@ -101,10 +101,7 @@ local plug_map = {
     ["n|<Leader>r"]      = map_cr("<cmd> lua require'internal.quickrun'.run_command()"):with_noremap():with_silent(),
     -- Plugin Vista
     ["n|<Leader>v"]      = map_cu('Vista'):with_noremap():with_silent(),
-    -- Plugin vim-operator-surround
-    ["n|sa"]             = map_cmd("<Plug>(operator-surround-append)"):with_silent(),
-    ["n|sd"]             = map_cmd("<Plug>(operator-surround-delete)"):with_silent(),
-    ["n|sr"]             = map_cmd("<Plug>(operator-surround-replace)"):with_silent(),
+
     -- Plugin hrsh7th/vim-eft
     ["n|;"]              = map_cmd("v:lua.enhance_ft_move(';')"):with_expr(),
     ["x|;"]              = map_cmd("v:lua.enhance_ft_move(';')"):with_expr(),

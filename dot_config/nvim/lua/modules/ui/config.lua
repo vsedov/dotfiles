@@ -12,7 +12,8 @@ function config.ui_i()
   vim.g.tokyonight_italic_functions = true
   vim.g.tokyonight_dark_sidebar = true
   vim.g.tokyonight_dark_float = true
-
+  
+  vim.g.tokyonight_sidebars = { "qf", "NvimTree", "NvimTreeNormal", "packer" }
   vim.g.tokyonight_colors = { hint = "orange", error = "#ff0000" }
 
 
@@ -68,7 +69,7 @@ function config.toggleterm()
 
   require("toggleterm").setup{
     open_mapping = [[<Leader><Leader>1]],
-    size = 60,
+    size = 20,
     hide_numbers = true, -- hide the number column in toggleterm buffers
     shade_terminals = true,
     start_in_insert = true,

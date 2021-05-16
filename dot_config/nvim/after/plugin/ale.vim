@@ -9,7 +9,7 @@ let g:ale_linters = {
   \   'tex': ['proselint', 'chktex', 'lacheck','texlab','latexindent','textlint'],
   \   'plaintex': ['proselint', 'chktex', 'lacheck','texlab'],
   \   'help': [],
-  \   'python': ['pylint'], 
+  \   'python': ['pyright'], 
   \   'ruby': ['solargraph', 'rubocop', 'ruby'],
   \   'groovy': ['android'],
   \   'xml': ['android'],
@@ -30,11 +30,8 @@ let g:ale_fixers = {
       \ }
 
 
-"This has to be set to zero for this to work
-let g:ale_disable_lsp = 1
+"highlight clear ALEWarningSign
+hi ALEWarningSign ctermfg=252 ctermbg=none
 
-
-highlight clear ALEErrorSign
-highlight clear ALEWarningSign
 
 command! Nani echo synIDattr(synID(line('.'), col('.'), 1), 'name')

@@ -1,10 +1,19 @@
 local editor = {}
 local conf = require('modules.editor.config')
 
-editor['Raimondi/delimitMate'] = {
+-- editor['Raimondi/delimitMate'] = {
+--   event = 'InsertEnter',
+--   config = conf.delimimate,
+-- }
+
+editor['https://github.com/windwp/nvim-autopairs'] = {
   event = 'InsertEnter',
-  config = conf.delimimate,
+  config = function()
+    require('nvim-autopairs').setup()
+   end,
 }
+
+
 
 editor['rhysd/accelerated-jk'] = {
   opt = true
@@ -41,10 +50,10 @@ editor['kana/vim-operator-replace'] = {
   requires = 'kana/vim-operator-user'
 }
 
-editor['rhysd/vim-operator-surround'] = {
-  event = 'BufRead',
-  requires = 'kana/vim-operator-user'
-}
+-- editor['rhysd/vim-operator-surround'] = {
+--   event = 'BufRead',
+--   requires = 'kana/vim-operator-user'
+-- }
 
 editor['kana/vim-niceblock']  = {
   opt = true
@@ -76,22 +85,25 @@ editor['https://github.com/lambdalisue/suda.vim.git']  = {
 
 
 
-editor['andweeb/presence.nvim']  = {
 
-  config = conf.discord
-
-}
 
 
 editor['https://github.com/machakann/vim-sandwich']  = {
   -- use defaulyt config .
 }
 
+editor['andweeb/presence.nvim']  = {
 
+  config = function()
 
+  require("presence"):setup({
+      
+  })
 
-editor['https://github.com/jeetsukumaran/vim-pythonsense']  = {
-  -- use default. config .
+  end
 }
+
+
+
 
 return editor

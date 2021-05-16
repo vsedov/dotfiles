@@ -4,16 +4,6 @@ local HOME = os.getenv('HOME')
 -- Need to figure out how to do java 
 
 
-require('dap-python').setup('/usr/bin/python3')
--- require('dap-python').test_runner = 'pytest'
-dap.configurations.python = {
-    cwd = vim.fn.getcwd(),
-    pathMappings = {
-        {
-            localRoot = vim.fn.getcwd(), -- Wherever your Python code lives locally.
-        };
-    };
-}
 
 
 vim.g['test#python#pytest#executable'] = 'pytest'
