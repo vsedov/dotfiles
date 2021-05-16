@@ -10,10 +10,10 @@ if not packer_plugins['lspsaga.nvim'].loaded then
 end
 
 
-if not packer_plugins['nvim-ale-diagnostic'].loaded then
-  vim.cmd [[packadd nvim-ale-diagnostic]]
+-- if not packer_plugins['nvim-ale-diagnostic'].loaded then
+--   vim.cmd [[packadd nvim-ale-diagnostic]]
 
-end
+-- end
 
 
 
@@ -78,27 +78,24 @@ vim.cmd('command! -nargs=0 LspRestart call v:lua.reload_lsp()')
 
 
 -- I dont like the lsp diagnositcs, it can be very annoying and gets in teh way 
--- vim.lsp.handlers['textDocument/publishDiagnostics']= function() end
-require("nvim-ale-diagnostic")
-vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
-    -- Enable underline, use default values
-    underline = false,
-    -- Enable virtual text, override spacing to 4
-    virtual_text = false,
-    signs =  true,
-    -- Disable a feature
-    update_in_insert = false,
-})
+vim.lsp.handlers['textDocument/publishDiagnostics']= function() end
+-- vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
+--   vim.lsp.diagnostic.on_publish_diagnostics, {
+--     -- Enable underline, use default values
+--     underline = false,
+--     -- Enable virtual text, override spacing to 4
+--     virtual_text = false,
+--     signs =  true,
+--     -- Disable a feature
+--     update_in_insert = false,
+-- })
 vim.cmd [[autocmd CursorHold * Lspsaga show_line_diagnostics]]
 vim.cmd[[autocmd CursorHoldI * silent! Lspsaga signature_help]]
 
 
 
 local enhance_attach = function(client,bufnr)
-  if client.resolved_capabilities.document_formatting then
-    format.lsp_before_save()
-  end
+
   api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 end
 
@@ -156,58 +153,47 @@ lspconfig.jedi_language_server.setup{
  filetypes = { "python" },
  on_attach = enhance_attach,
  capabilities = capabilities,
-  init_options = {
-    diagnostics = {
-          enable = true,
-          didOpen = true,
-          didChange = true,
-          didSave = true
-    },
-    jediSettings = {
-      autoImportModules = {'numpy'},
-    },
-  },
 }
 
 
-lspconfig.diagnosticls.setup {
-  filetypes = { "python" },
-  init_options = {
-    filetypes = {
-      python = {"flake8"},
-    },
-    linters = {
-      flake8 = {
-        debounce = 100,
-        sourceName = "flake8",
-        command = "flake8",
-        args = {
-          "--extend-ignore=E",
-          "--format",
-          "%(row)d:%(col)d:%(code)s:%(code)s: %(text)s",
+-- lspconfig.diagnosticls.setup {
+--   filetypes = { "python" },
+--   init_options = {
+--     filetypes = {
+--       python = {"flake8"},
+--     },
+--     linters = {
+--       flake8 = {
+--         debounce = 100,
+--         sourceName = "flake8",
+--         command = "flake8",
+--         args = {
+--           "--extend-ignore=E",
+--           "--format",
+--           "%(row)d:%(col)d:%(code)s:%(code)s: %(text)s",
 
-          "%file",
+--           "%file",
 
-        },
-        formatPattern = {
-          "^(\\d+):(\\d+):(\\w+):(\\w).+: (.*)$",
-          {
-              line = 1,
-              column = 2,
-              message = {"[", 3, "] ", 5},
-              security = 4
-          }
-        },
-        securities = {
-          E = "error",
-          W = "warning",
-          F = "info",
-          B = "hint",
-        },
-      },
-    },
-  }
-}
+--         },
+--         formatPattern = {
+--           "^(\\d+):(\\d+):(\\w+):(\\w).+: (.*)$",
+--           {
+--               line = 1,
+--               column = 2,
+--               message = {"[", 3, "] ", 5},
+--               security = 4
+--           }
+--         },
+--         securities = {
+--           E = "error",
+--           W = "warning",
+--           F = "info",
+--           B = "hint",
+--         },
+--       },
+--     },
+--   }
+-- }
 
 
 

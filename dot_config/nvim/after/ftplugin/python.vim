@@ -1,5 +1,4 @@
 
-
 filetype indent on
 filetype on
 filetype plugin on
@@ -7,15 +6,14 @@ filetype plugin on
 
 
 
+syntax off
 
 setlocal colorcolumn=90
-
 
 
 let g:runner_python_ex = 'python3'
 let g:runner_python_options = ''
 
-let b:ale_fixers = ['nayvy#ale_fixer', 'black']
 
 
 let g:test#strategy = "dispatch"
@@ -25,3 +23,5 @@ let g:test#python#runner = "pytest"
 
 
 
+
+"au BufWrite * :Black
