@@ -1,4 +1,6 @@
 local config = {}
+local api = vim.api
+
 
 function config.nvim_treesitter()
   vim.api.nvim_command('set foldmethod=expr')
@@ -7,6 +9,12 @@ function config.nvim_treesitter()
     ensure_installed = "maintained",
     highlight = {
       enable = true,
+    },
+    indent = {
+      enable = true
+    },
+    fold = {
+      enable = true
     },
     textobjects = {
             select = {
@@ -55,8 +63,11 @@ function config.nvim_treesitter()
 
 end
 
+local ft_str = ""
+local autocmd_fold_str = ""
 
-
+autocmd_fold_str = 'autocmd Filetype '..ft_str..' setlocal foldmethod=expr foldexpr=nvim_treesitter#foldexpr()'
+api.nvim_command(autocmd_fold_str)
 
 return config
 

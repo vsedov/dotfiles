@@ -1,14 +1,18 @@
+setlocal tabstop=4
+setlocal shiftwidth=4
+setlocal expandtab
+setlocal autoindent
+setlocal smarttab
+setlocal go+=b
 
 filetype indent on
 filetype on
 filetype plugin on
-
-
-
-
-syntax off
-
 setlocal colorcolumn=90
+
+
+
+highlight ColorColumn guibg=Black
 
 
 let g:runner_python_ex = 'python3'
