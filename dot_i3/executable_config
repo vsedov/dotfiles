@@ -11,7 +11,7 @@
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
-#Execs  
+#Execs
 
 
 #exec --no-startup-id redshift -l 51.525026:-0.341500
@@ -21,30 +21,29 @@ exec --no-startup-id nm-applet
 exec --no-startup-id systemctl --user restart pulseaudio.service
 
 
-# Let Hdmi - all of that be a buffer monitro and let the 4k , one deal with other main process which relate to coding . 
+# Let Hdmi - all of that be a buffer monitro and let the 4k , one deal with other main process which relate to coding .
 
 exec --no-startup-id xrandr --output HDMI-0  --left-of DP-0
 
 exec_always feh --bg-scale ~/Downloads/upscalebuterfly.png
 
-exec_always --no-startup-id exec  
+exec_always --no-startup-id exec
 exec --no-startup-id redshift -l 51.525026:-0.341500
 
 
 
-exec --no-startup /usr/lib/geoclue-2.0/demos/agent & 
+exec --no-startup /usr/lib/geoclue-2.0/demos/agent &
 
 
-exec_always --no-startup-id picom --experimental-backends  --vsync  --config ~/.config/compton.conf
-
+exec_always --no-startup-id picom --experimental-backends --backend glx --vsync --config ~/.config/compton.conf
 
 
 #exec_always --no-startup-id picom --vsync --opengl --config ~/.config/compton.conf
 
 
 
-#Config will have to change after third monitor . 
-exec_always --no-startup-id ~/Documents/Wallpaper/./wallpaper-wrap.sh 
+#Config will have to change after third monitor .
+exec_always --no-startup-id ~/Documents/Wallpaper/./wallpaper-wrap.sh
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 exec_always --no-startup-id ibus-daemon &
 # I tend to use ibus for languages when learning japanese , so its quite nice
@@ -58,7 +57,7 @@ exec_always --no-startup-id i3-msg "workspace $ws1; append_layout /home/viv/.i3/
 
 exec  alacritty --title matrix -e zsh -c 'ranger'
 exec  alacritty --title cava -e zsh -c 'cava'
-exec  alacritty --title neo -e zsh -c 'srfetch && zsh' 
+exec  alacritty --title neo -e zsh -c 'srfetch && zsh'
 exec  alacritty --title htop -e zsh -c 'gotop -a'
 
 
@@ -163,7 +162,7 @@ client.urgent $base01   $base01 $base05 $base00
 #Check .Xresources for font
 
 # start a terminal
-bindsym $mod+Return exec alacritty 
+bindsym $mod+Return exec alacritty
 
 
 # kill focused window
@@ -264,7 +263,7 @@ bindsym $mod+Shift+F3 move container to workspace $ws13
 bindsym $mod+Shift+F4 move container to workspace $ws14
 bindsym $mod+Shift+F5 move container to workspace $ws15
 
-#assign apps to workspaces  
+#assign apps to workspaces
 assign [class = "urxvt"] $ws1
 assign [class = "Binance"] $ws2
 assign [class = "Subl"] $ws3
@@ -277,10 +276,10 @@ assign [class = "Overleaf Desktop"] $ws5
 assign [class = "Pulseeffects"] $ws5
 assign [class = "Lampe-gtk"] $ws5
 assign [class = "okular"] $ws7
-assign [class = "YouTube Music"] $ws8
+assign [class = "ytmdesktop"] $ws8
 
 
- 
+
 
 
 
@@ -310,7 +309,7 @@ mode "resize" {
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
         bindsym h resize shrink width 10 px or 10 ppt
-        bindsym j resize shrink height 10 px or 10 ppt        
+        bindsym j resize shrink height 10 px or 10 ppt
         bindsym k resize grow height 10 px or 10 ppt
         bindsym l resize grow width 10 px or 10 ppt
 
@@ -340,7 +339,7 @@ bindsym $mod+p exec i3lock-fancy
 #       focused_workspace  $inactive-bg-color $bg-color          $text-color
 #       inactive_workspace $bg-color          $bg-color          $text-color
 #       urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
-#   }   
+#   }
 #}
 
 
@@ -356,13 +355,13 @@ bindsym --release Print exec "scrot ~/Pictures/Screenshots/%b%d:%H%M%S.png"
 
 
 
-bindsym XF86AudioRaiseVolume exec amixer -q -D pulse sset Master 2%+; 
-
-#exec pkill -RTMIN+10 i3blocks 
-bindsym XF86AudioLowerVolume exec amixer -q -D pulse sset Master 2%-; 
+bindsym XF86AudioRaiseVolume exec amixer -q -D pulse sset Master 2%+;
 
 #exec pkill -RTMIN+10 i3blocks
-bindsym XF86AudioMute exec amixer -q -D pulse sset Master toggle; 
+bindsym XF86AudioLowerVolume exec amixer -q -D pulse sset Master 2%-;
+
+#exec pkill -RTMIN+10 i3blocks
+bindsym XF86AudioMute exec amixer -q -D pulse sset Master toggle;
 
 #exec pkill -RTMIN+10 i3blocks
 
@@ -376,7 +375,7 @@ exec /usr/bin/lampe-gtk
 exec /usr/bin/lampe-gtk
 exec /usr/bin/binance
 
-exec  "sh -c 'sleep 10; exec youtube-music-bin'"
+exec  "sh -c 'sleep 10; exec ytmdesktop'"
 exec  "sh -c 'sleep 15; exec pulseeffects'"
 
 
