@@ -10,12 +10,6 @@ if not packer_plugins['lspsaga.nvim'].loaded then
 end
 
 
--- if not packer_plugins['nvim-ale-diagnostic'].loaded then
---   vim.cmd [[packadd nvim-ale-diagnostic]]
-
--- end
-
-
 local saga = require 'lspsaga'
 saga.init_lsp_saga({
   code_action_keys = {
@@ -56,11 +50,6 @@ capabilities.textDocument.codeAction = {
 
 
 
-do
-  
-end
-
-
 
 function _G.reload_lsp()
   vim.lsp.stop_client(vim.lsp.get_active_clients())
@@ -84,34 +73,25 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
     underline = false,
     -- Enable virtual text, override spacing to 4
     virtual_text = false,
-    signs =  true,
+    signs = {
+      enable = true,
+      priority = 20
+    },
     -- Disable a feature
     update_in_insert = true,
 })
-vim.cmd [[autocmd CursorHold * Lspsaga show_line_diagnostics]]
-vim.cmd[[autocmd CursorHoldI * silent! Lspsaga signature_help]]
+vim.cmd [[autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()]]
+
+vim.cmd [[autocmd CursorHoldI * silent! Lspsaga signature_help]]
 
 
 
 local enhance_attach = function(client,bufnr)
-
+  if client.resolved_capabilities.document_formatting then
+    format.lsp_before_save()
+  end
   api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 end
-
-
-
-
-local servers = {
-  'dockerls','bashls'
-}
-
-for _,server in ipairs(servers) do
-  lspconfig[server].setup {
-    on_attach = enhance_attach,
-    capabilities = capabilities,
-  }
-end
-
 
 lspconfig.gopls.setup {
   filetypes = {"go"},
@@ -154,7 +134,6 @@ lspconfig.jedi_language_server.setup{
  capabilities = capabilities,
 }
 
-
 lspconfig.diagnosticls.setup {
   filetypes = { "python" },
   init_options = {
@@ -193,8 +172,6 @@ lspconfig.diagnosticls.setup {
     },
   }
 }
-
-
 
 
 lspconfig.jdtls.setup{
@@ -279,30 +256,6 @@ lspconfig.vimls.setup{
 
 
 
-
-
-local function setup_servers()
-  require'lspinstall'.setup()
-  local servers = require'lspinstall'.installed_servers()
-  for _, server in pairs(servers) do
-    require'lspconfig'[server].setup{
-      
-      capabilities = capabilities,
-      on_attach = enhance_attach,
-
-    }
-  end
-end
-
-setup_servers()
-
--- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
-require'lspinstall'.post_install_hook = function ()
-  setup_servers() -- reload installed servers
-  vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
-end
-
-
 vim.api.nvim_call_function('sign_define', {"LspDiagnosticsSignError", {text = "", texthl = "LspDiagnosticsDefaultError"}})
 vim.fn.sign_define("LspDiagnosticsSignWarning", {text = "", texthl = "LspDiagnosticsDefaultWarning"})
 vim.fn.sign_define("LspDiagnosticsSignInformation", {text = "", texthl = "LspDiagnosticsDefaultInformation"})
@@ -365,3 +318,39 @@ vim.fn.sign_define("LspDiagnosticsSignOther", {text = "﫠", texthl = "LspDiagno
 --   filetypes = { "c", "cpp", "objc", "objcpp" },
 
 -- }
+-- require'lspinstall'.setup() -- important
+
+-- local servers = require'lspinstall'.installed_servers()
+-- for _, server in pairs(servers) do
+--   require'lspconfig'[server].setup{}
+-- end
+
+
+-- local function setup_servers()
+--   require'lspinstall'.setup()
+--   local servers = require'lspinstall'.installed_servers()
+--   for _, server in pairs(servers) do
+--     require'lspconfig'[server].setup{
+      
+--       capabilities = capabilities,
+--       on_attach = enhance_attach,
+
+--     }
+--   end
+-- end
+
+-- setup_servers()
+
+-- -- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
+-- require'lspinstall'.post_install_hook = function ()
+--   setup_servers() -- reload installed servers
+--   vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
+-- end
+
+-- if not packer_plugins['lspinstall'].loaded then
+--   vim.cmd [[packadd lspinstall]]
+
+-- end
+
+-- vim.cmd [[autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()]]
+-- vim.cmd [[autocmd CursorHoldI * silent! lua vim.lsp.buf.signature_help()]]
