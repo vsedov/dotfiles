@@ -273,7 +273,7 @@ function config.trouble()
               next = "j" -- next item
           },
           indent_lines = true, -- add an indent guide below the fold icons
-          auto_open = true, -- automatically open the list when you have diagnostics
+          auto_open = false, -- automatically open the list when you have diagnostics
           auto_close = false, -- automatically close the list when you have no diagnostics
           auto_preview = true, -- automatyically preview the location of the diagnostic. <esc> to close preview and go back to last window
           auto_fold = false, -- automatically fold a file trouble list at creation
@@ -289,5 +289,48 @@ function config.trouble()
       }
 
 end
+
+function config.ale()
+
+    vim.g.ale_completion_enabled = 0
+    vim.g.ale_python_pylint_options = '--rcfile ~/.config/pylintrc'
+    vim.g.ale_python_mypy_options = ''
+    vim.g.ale_list_window_size =  4
+    vim.g.ale_sign_column_always = 0
+    vim.g.ale_open_list = 0
+
+
+    vim.g.ale_set_loclist = 0
+
+    vim.g.ale_set_quickfix = 1
+    vim.g.ale_keep_list_window_open = 1
+    vim.g.ale_list_vertical = 0
+
+    vim.g.ale_disable_lsp =1
+
+
+    vim.g.ale_lint_on_save = 1
+
+    vim.g.ale_sign_error = ''
+    vim.g.ale_sign_warning = ''
+    vim.g.ale_lint_on_text_changed = 1
+
+    vim.g.ale_echo_msg_format = '[%linter%] %s [%severity%]'
+
+    vim.g.ale_lint_on_insert_leave = 0
+    vim.g.ale_lint_on_enter = 0
+
+
+    vim.g.ale_set_balloons = 1
+    vim.g.ale_hover_cursor = 1
+    vim.g.ale_hover_to_preview = 1
+    vim.g.ale_float_preview = 1
+    vim.g.ale_virtualtext_cursor = 1
+
+    vim.g.ale_fix_on_save = 1
+    vim.g.ale_fix_on_insert_leave = 0
+    vim.g.ale_fix_on_text_changed = 'never'
+end
+
 
 return config
