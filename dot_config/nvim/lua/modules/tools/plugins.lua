@@ -46,9 +46,6 @@ tools['gennaro-tedesco/nvim-jqx'] = {
 }
 
 
---NOT REALLY SURE WHAT THIS DOES NGL . BUT FUCK IT .
-tools['ahmedkhalf/lsp-rooter.nvim'] = {
-}
 
 tools['Pocco81/HighStr.nvim'] = {
 }
@@ -71,14 +68,13 @@ tools['brooth/far.vim'] = {
 }
 
 tools['iamcco/markdown-preview.nvim'] = {
+  run = ':call mkdp#util#install()',
+
   ft = 'markdown',
   config = function ()
-    vim.g.mkdp_auto_start = 0
+    vim.g.mkdp_auto_start = 1
   end
 }
-
-
-
 
 -- Nice toools 
 
