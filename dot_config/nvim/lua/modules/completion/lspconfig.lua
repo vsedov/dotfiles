@@ -40,7 +40,7 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 }
 
 capabilities.textDocument.codeAction = {
-  dynamicRegistration = false;
+  dynamicRegistration = true;
   codeActionLiteralSupport = {
     codeActionKind = {
       valueSet = {

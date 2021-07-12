@@ -179,6 +179,10 @@ completion['michaelb/sniprun'] = {
   -- This has not been 100% set up make sure you set it up later 
 
 }
+-- completion['simrat39/symbols-outline.nvim'] = {
+--   config = conf.outline
+-- }
+
 
 
 

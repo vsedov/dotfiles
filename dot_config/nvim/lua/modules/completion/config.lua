@@ -56,7 +56,7 @@ function config.nvim_compe()
         nvim_lsp = {priority = 1000,kind = "  "},
         -- nvim_lua = {kind = "  "},
         nvim_lua = false,
-        -- spell = {kind = "  "},
+        spell = {kind = "  "},
         tags = false,
         vim_dadbod_completion = false,
         tabnine = {priority = 999,kind = "TN ",max_line = 1000, show_prediction_strength = true},
@@ -189,7 +189,27 @@ function config.vimtex()
 
 end
 
-
+-- function config.outline()
+-- -- init.lua
+-- vim.g.symbols_outline = {
+--     highlight_hovered_item = true,
+--     show_guides = true,
+--     auto_preview = true,
+--     position = 'right',
+--     show_numbers = false,
+--     show_relative_numbers = false,
+--     show_symbol_details = true,
+--     keymaps = {
+--         close = "<Esc>",
+--         goto_location = "<Cr>",
+--         focus_location = "o",
+--         hover_symbol = "<C-space>",
+--         rename_symbol = "r",
+--         code_actions = "a",
+--     },
+--     lsp_blacklist = {},
+-- }
+-- end
 --py - put brackets . 
 function config.todo_comments()
   if not packer_plugins['plenary.nvim'].loaded then

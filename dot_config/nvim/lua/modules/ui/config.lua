@@ -69,6 +69,9 @@ function config.nvim_tree()
       vim.cmd("NvimTreeRefresh")
     end
   )
+  vim.g.nvim_tree_git_hl = 1 
+  vim.g.nvim_tree_highlight_opened_files = 1
+  vim.g.nvim_tree_update_cwd = 1
   vim.g.nvim_tree_follow = 1
   vim.g.nvim_tree_hide_dotfiles = 1
   vim.g.nvim_tree_indent_markers = 1
@@ -199,8 +202,9 @@ function config.ui()
   vim.g.calvera_contrast = true
   vim.g.calvera_borders = true
   vim.g.calvera_disable_background = true
+  vim.g.calvera_lighter_contrast=true
   vim.g.calvera_hide_eob = true
-  vim.g.calvera_custom_colors = {contrast = "#0f111a"}
+  vim.g.calvera_custom_colors = {contrast = "#0F0E16"}
   -- Required Setting
   require('calvera').set()
 
