@@ -45,6 +45,23 @@ ui['lewis6991/gitsigns.nvim'] = {
 ui['kdav5758/TrueZen.nvim'] = {
   config = conf.truezen
 }
+ui['folke/zen-mode.nvim'] = {
+
+  config = function()
+    require("zen-mode").setup {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+    }
+
+
+
+  end
+
+}
+
+ui['folke/twilight.nvim'] = {
+}
 
 
 ui['mbbill/undotree'] = {

@@ -47,6 +47,7 @@ tools['gennaro-tedesco/nvim-jqx'] = {
 
 
 
+
 tools['Pocco81/HighStr.nvim'] = {
 }
 
@@ -59,6 +60,14 @@ tools['liuchengxu/vista.vim'] = {
   cmd = 'Vista',
   config = conf.vim_vista
 }
+
+
+tools['simrat39/symbols-outline.nvim'] = {
+  cmd = 'SymbolsOutline',
+  config = conf.SymbolsOutline
+}
+
+
 
 tools['brooth/far.vim'] = {
   cmd = {'Far','Farp'},

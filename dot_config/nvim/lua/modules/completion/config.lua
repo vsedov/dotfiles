@@ -34,6 +34,7 @@ end
 
 
 function config.nvim_compe()
+
   require'compe'.setup {
     enabled = true;
     autocomplete = true,
@@ -51,21 +52,24 @@ function config.nvim_compe()
     source = {
         path = {kind = "  "},
         buffer = {kind = "  "},
+        
         calc = {kind = "  "},
         vsnip = {kind = "  "},
         nvim_lsp = {priority = 1000,kind = "  "},
         -- nvim_lua = {kind = "  "},
         nvim_lua = false,
         spell = {kind = "  "},
-        tags = false,
-        vim_dadbod_completion = false,
+        tags = true,
+        vim_dadbod_completion = true,
         tabnine = {priority = 999,kind = "TN ",max_line = 1000, show_prediction_strength = true},
         -- snippets_nvim N= {kind = "  "},
         latex_symbols = true,
+
         -- zsh = true,
         ultisnips = {kind = "  "},
         treesitter = {kind = "  "},
-        emoji = {kind = " ﲃ ", filetypes={"markdown", "text"}}
+        emoji = {kind = " ﲃ ", filetypes={"markdown", "text"}},
+        neorg = true,
         -- for emoji press : (idk if that in compe tho)
     }
   }
