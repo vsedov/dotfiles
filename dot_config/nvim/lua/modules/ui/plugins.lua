@@ -1,7 +1,8 @@
 local ui = {}
 local conf = require('modules.ui.config')
 
-ui['yashguptaz/calvera-dark.nvim'] = {
+--switch out with folke/tokyonight.nvim
+ui['folke/tokyonight.nvim'] = {
   config = conf.ui,
 }
 
@@ -10,6 +11,7 @@ ui['glepnir/dashboard-nvim'] = {
   config = conf.dashboard,
 
 }
+
 
 
 ui['glepnir/galaxyline.nvim'] = {

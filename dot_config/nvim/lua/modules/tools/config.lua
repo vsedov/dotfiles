@@ -41,7 +41,7 @@ end
 
 function  config.sybolsoutline()
   vim.g.symbols_outline = {
-      highlight_hovered_item = true,
+      highlight_hovered_item = false,
       show_guides = true,
       auto_preview = true,
       position = 'right',
@@ -77,7 +77,7 @@ function config.vim_vista()
 end
 
 function config.SymbolsOutline()
- 
+
   vim.g.symbols_outline = {
       highlight_hovered_item = true,
       show_guides = true,

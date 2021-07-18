@@ -48,7 +48,6 @@ function config.nvim_compe()
     max_kind_width = 100,
     max_menu_width = 100,
     documentation = true,
-
     source = {
         path = {kind = "  "},
         buffer = {kind = "  "},
@@ -61,15 +60,16 @@ function config.nvim_compe()
         spell = {kind = "  "},
         tags = true,
         vim_dadbod_completion = true,
-        tabnine = {priority = 999,kind = "TN ",max_line = 1000, show_prediction_strength = true},
+        tabnine = {priority = 999,kind = "  ",max_line = 1000, show_prediction_strength = true},
         -- snippets_nvim N= {kind = "  "},
         latex_symbols = true,
 
         -- zsh = true,
         ultisnips = {kind = "  "},
-        treesitter = {kind = "  "},
+        treesitter=false,
+        -- treesitter = {kind = "  "},
         emoji = {kind = " ﲃ ", filetypes={"markdown", "text"}},
-        neorg = true,
+        neorg = {priority=1000,filetypes={"neorg","norg"}},
         -- for emoji press : (idk if that in compe tho)
     }
   }
@@ -102,11 +102,11 @@ function config.vim_sonictemplate()
   vim.g.sonictemplate_vim_template_dir = os.getenv("HOME").. '/.config/nvim/template'
 end
 
-function config.smart_input()
-  require('smartinput').setup {
-    ['go'] = { ';',':=',';' }
-  }
-end
+-- function config.smart_input()
+--   require('smartinput').setup {
+--     ['go'] = { ';',':=',';' }
+--   }
+-- end
 
 function config.emmet()
   vim.g.user_emmet_complete_tag = 0
@@ -193,27 +193,7 @@ function config.vimtex()
 
 end
 
--- function config.outline()
--- -- init.lua
--- vim.g.symbols_outline = {
---     highlight_hovered_item = true,
---     show_guides = true,
---     auto_preview = true,
---     position = 'right',
---     show_numbers = false,
---     show_relative_numbers = false,
---     show_symbol_details = true,
---     keymaps = {
---         close = "<Esc>",
---         goto_location = "<Cr>",
---         focus_location = "o",
---         hover_symbol = "<C-space>",
---         rename_symbol = "r",
---         code_actions = "a",
---     },
---     lsp_blacklist = {},
--- }
--- end
+
 --py - put brackets . 
 function config.todo_comments()
   if not packer_plugins['plenary.nvim'].loaded then

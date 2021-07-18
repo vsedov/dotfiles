@@ -8,6 +8,8 @@ lang['nvim-treesitter/nvim-treesitter'] = {
 }
 
 lang['nvim-treesitter/nvim-treesitter-textobjects'] = {
+  config = conf.textobjects,
+
   after = 'nvim-treesitter'
 }
 
@@ -19,12 +21,23 @@ lang['https://github.com/haringsrob/nvim_context_vt'] = {
 
 
 lang['https://github.com/RRethy/nvim-treesitter-textsubjects'] = {
+  config = conf.textsubjects,
   after = 'nvim-treesitter',
 
 }
 
+
+lang['https://github.com/p00f/nvim-ts-rainbow'] = {
+  config = conf.rainbow,
+  after = 'nvim-treesitter',
+
+}
+
+
 -- Bloody Usefull 
 lang['vhyrro/neorg']={
+    branch = "unstable",
+    ft = "norg",
     config = function()
         if not packer_plugins['plenary.nvim'].loaded then
           vim.cmd [[packadd plenary.nvim]]
@@ -36,7 +49,6 @@ lang['vhyrro/neorg']={
                 ["core.keybinds"] = { -- Configure core.keybinds
                     config = {
                         default_keybinds = true, -- Generate the default keybinds
-                        neorg_leader = "<Leader>" -- This is the default if unspecified
                     }
                 },
                 ["core.norg.concealer"] = {}, -- Allows for use of icons

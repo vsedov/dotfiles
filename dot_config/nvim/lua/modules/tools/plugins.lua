@@ -24,6 +24,8 @@ tools['relastle/vim-nayvy'] ={
 }
 
 
+
+
 tools['wakatime/vim-wakatime'] ={
 }
 
@@ -64,7 +66,6 @@ tools['liuchengxu/vista.vim'] = {
 
 tools['simrat39/symbols-outline.nvim'] = {
   cmd = 'SymbolsOutline',
-  config = conf.SymbolsOutline
 }
 
 
@@ -77,6 +78,7 @@ tools['brooth/far.vim'] = {
 }
 
 
+
 tools['iamcco/markdown-preview.nvim'] = {
   run = ':call mkdp#util#install()',
 
@@ -85,6 +87,9 @@ tools['iamcco/markdown-preview.nvim'] = {
     vim.g.mkdp_auto_start = 1
   end
 }
+
+
+
 
 -- Nice toools 
 
