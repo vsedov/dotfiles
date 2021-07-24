@@ -77,6 +77,7 @@ completion['nvim-telescope/telescope.nvim'] = {
   },
   config = conf.telescope
 }
+
 completion['pwntester/octo.nvim']={
   after="telescope.nvim",
   config  = function()
@@ -130,6 +131,7 @@ completion['kevinhwang91/nvim-bqf'] = {
 
 
 
+
 completion['mfussenegger/nvim-dap'] = {
   requires ={
     {'rcarriga/vim-ultest'},
@@ -144,10 +146,6 @@ completion['mfussenegger/nvim-dap'] = {
   config = function()
 
   require('dapstuff.dapstuff')
-
-  require("dapui").setup()
-
-
   
     -- virtual text deactivated (default)
   vim.g.dap_virtual_text = false
@@ -163,6 +161,7 @@ completion['mfussenegger/nvim-dap'] = {
 
   end
 }
+
 
 
 

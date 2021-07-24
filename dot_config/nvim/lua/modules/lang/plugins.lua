@@ -14,10 +14,11 @@ lang['nvim-treesitter/nvim-treesitter-textobjects'] = {
 }
 
 
-lang['https://github.com/haringsrob/nvim_context_vt'] = {
-  after = 'nvim-treesitter',
+-- lang['https://github.com/haringsrob/nvim_context_vt'] = {
+--   after = 'nvim-treesitter',
 
-}
+-- }
+
 
 
 lang['https://github.com/RRethy/nvim-treesitter-textsubjects'] = {

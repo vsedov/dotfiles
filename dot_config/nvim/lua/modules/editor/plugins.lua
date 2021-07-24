@@ -17,6 +17,14 @@ editor['norcalli/nvim-colorizer.lua'] = {
   config = conf.nvim_colorizer
 }
 
+
+editor['haya14busa/vim-asterisk'] = {
+  opt = true,
+}
+
+
+
+
 editor['itchyny/vim-cursorword'] = {
   event = {'BufReadPre','BufNewFile'},
   config = conf.vim_cursorwod

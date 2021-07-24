@@ -47,8 +47,24 @@ tools['euclidianAce/BetterLua.vim'] = {}
 
 tools['nacro90/numb.nvim'] = {
   config = function ()
-  require('numb').setup()  end
+    require('numb').setup{
+      show_numbers = true, -- Enable 'number' for the window while peeking
+      show_cursorline = true -- Enable 'cursorline' for the window while peeking
+    }
+  end
 }
+
+
+tools['AndrewRadev/splitjoin.vim'] = {
+  opt = true,
+  cmd = {'SplitjoinSplit', 'SplitjoinJoin'},
+  config = function ()
+    vim.g.splitjoin_split_mapping = ''
+    vim.g.splitjoin_join_mapping  = ''
+  end
+}
+
+
 
 
 tools['gennaro-tedesco/nvim-jqx'] = {
@@ -124,6 +140,12 @@ vim.g.symbols_outline = {
   end
 }
 
+tools['kdheepak/lazygit.nvim'] = {
+  cmd = {'LazyGit', 'LazyGitConfig'},
+  config = function()
+    vim.g.lazygit_floating_window_winblend = 2
+  end
+}
 
 
 tools['brooth/far.vim'] = {

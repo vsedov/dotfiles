@@ -6,8 +6,12 @@ local HOME = os.getenv('HOME')
 
 require('dap-python').setup('/usr/bin/python3')
 require('dap-python').test_runner = 'pytest'
+require('dapui').setup({})
 
 
+vim.g.dap_virtual_text = false
+vim.g.dap_virtual_text = true
+vim.g.dap_virtual_text = 'all frames'
 
 vim.g['test#python#pytest#executable'] = 'pytest'
 
@@ -45,8 +49,6 @@ require("ultest").setup({
         end
     }
 })
-
-
 
 dap.adapters.cpp = {
     type = 'executable',
