@@ -3,6 +3,16 @@ local lspconfig = require 'lspconfig'
 local global = require 'core.global'
 local format = require('modules.completion.format')
 local fn = vim.fn
+
+
+require'lsp_extensions'.inlay_hints{
+  highlight = "Comment",
+  prefix = " > ",
+  aligned = false,
+  only_current_line = false,
+  enabled = { "ChainingHint" }
+}
+
 require('lspkind').init({
     -- enables text annotations
     --
@@ -14,7 +24,7 @@ require('lspkind').init({
     -- 'codicons' for codicon preset (requires vscode-codicons font installed)
     --
     -- default: 'default'
-    preset = 'default',
+    preset = 'codicons',
 
     -- override preset symbols
     -- default: {}
@@ -46,27 +56,46 @@ require('lspkind').init({
     },
 })
 
-if not packer_plugins['lspsaga.nvim'].loaded then
-  vim.cmd [[packadd lspsaga.nvim]]
+-- if not packer_plugins['lspsaga.nvim'].loaded then
+--   vim.cmd [[packadd lspsaga.nvim]]
+
+-- end
+
+-- if not packer_plugins['coq_nvim'].loaded then
+--   vim.cmd [[packadd coq_nvim]]
+
+-- end
+
+-- local coq = require('coq')
+
+
+if not packer_plugins['telescope.nvim'].loaded then
+  vim.cmd [[packadd telescope.nvim]]
 
 
 end
+
+if not packer_plugins['lsp_signature.nvim'].loaded then
+  vim.cmd [[packadd lsp_signature.nvim]]
+  
+end
+
 if not packer_plugins['lsp-colors.nvim'].loaded then
   vim.cmd [[packadd folke/lsp-colors.nvim]]
   
 end
 
 
-local saga = require 'lspsaga'
-saga.init_lsp_saga({
-  code_action_keys = {
-    quit = 'q',exec = '<CR>'
-  },
-  rename_action_keys = {
-    quit = '<C-c>',exec = '<CR>'  -- quit can be a table
-  },
-  code_action_icon = '',
-})
+-- local saga = require 'lspsaga'
+-- saga.init_lsp_saga({
+--   code_action_keys = {
+--     quit = 'q',exec = '<CR>'
+--   },
+--   rename_action_keys = {
+--     quit = '<C-c>',exec = '<CR>'  -- quit can be a table
+--   },
+--   code_action_icon = '',
+-- })
 
 
 
@@ -81,7 +110,7 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 }
 
 capabilities.textDocument.codeAction = {
-  dynamicRegistration = true;
+  -- dynamicRegistration = false;
   codeActionLiteralSupport = {
     codeActionKind = {
       valueSet = {
@@ -100,6 +129,11 @@ capabilities.textDocument.codeAction = {
 
 
 
+
+
+
+
+
 function _G.reload_lsp()
   vim.lsp.stop_client(vim.lsp.get_active_clients())
   vim.cmd [[edit]]
@@ -113,38 +147,59 @@ end
 vim.cmd('command! -nargs=0 LspLog call v:lua.open_lsp_log()')
 vim.cmd('command! -nargs=0 LspRestart call v:lua.reload_lsp()')
 
-cfg = {
+
+ cfg = {
+  debug = false, -- set to true to enable debug logging
+  log_path = "debug_log_file_path", -- debug log path
+  verbose = false, -- show debug line number
+
   bind = true, -- This is mandatory, otherwise border config won't get registered.
                -- If you want to hook lspsaga or other signature handler, pls set to false
-  doc_lines = 40,
-
+  doc_lines = 10, -- will show two lines of comment/doc(if there are more than two lines in doc, will be truncated);
+                 -- set to 0 if you DO NOT want any API comments be shown
+                 -- This setting only take effect in insert mode, it does not affect signature help in normal
+                 -- mode, 10 by default
 
   floating_window = true, -- show hint in a floating window, set to false for virtual text only mode
+
+  floating_window_above_cur_line = true, 
+  -- try to place the floating above the current line when possible Note:
+  -- will set to true when fully tested, set to false will use whichever side has more space
+  -- this setting will be helpful if you do not want the PUM and floating win overlap
   fix_pos = false,  -- set to true, the floating window will not auto-close until finish all parameters
   hint_enable = true, -- virtual hint enable
-  hint_prefix = " 🐼 ",  -- Panda for parameter
+  hint_prefix = "🐼 ",  -- Panda for parameter
   hint_scheme = "String",
   use_lspsaga = false,  -- set to true if you want to use lspsaga popup
-  hi_parameter = "Search", -- how your parameter will be highlight
-  max_height = 110, 
-  -- max height of signature floating_window, if content is more than max_height, you can scroll down
+  hi_parameter = "LspSignatureActiveParameter", -- how your parameter will be highlight
+  max_height = 12, -- max height of signature floating_window, if content is more than max_height, you can scroll down
                    -- to view the hiding contents
-  max_width = 140, -- max_width of signature floating_window, line will be wrapped if exceed max_width
+  max_width = 120, -- max_width of signature floating_window, line will be wrapped if exceed max_width
+  transpancy = 100, -- set this value if you want the floating windows to be transpant (100 fully transpant), nil to disable(default)
   handler_opts = {
-    -- border = "shadow"
-    -- border = {""},
-    -- border = {"w", "═" ,"╗", "║", "╝", "═", "╚", "║" },
-    border = {"╭", "─" ,"╮", "│", "╯", "─", "╰", "│" },
+    border = "double"   -- double, single, shadow, none
   },
 
-  extra_trigger_chars = {} -- Array of extra characters that will trigger signature completion, e.g., {"(", ","}
-}
+  always_trigger = false, -- sometime show signature on new line or in middle of parameter can be confusing, set it to false for #58
 
+  auto_close_after = 3, -- autoclose signature float win after x sec, disabled if nil.
+  extra_trigger_chars = {}, -- Array of extra characters that will trigger signature completion, e.g., {"(", ","}
+  zindex = 200, -- by default it will be on top of all floating windows, set to <= 50 send it to bottom
+
+  padding = '', -- character to pad on left and right of signature can be ' ', or '|'  etc
+
+  transpancy = nil, -- disabled by default, allow floating win transparent value 1~100
+  shadow_blend = 36, -- if you using shadow as border use this set the opacity
+  shadow_guibg = 'Black', -- if you using shadow as border use this set the color e.g. 'Green' or '#121315'
+  timer_interval = 200, -- default timer check interval set to lower value if you want to reduce latency
+  toggle_key = nil -- toggle signature on and off in insert mode,  e.g. toggle_key = '<M-x>'
+}
 
 
 -- I dont like the lsp diagnositcs, it can be very annoying and gets in teh way
 -- vim.lsp.handlers['textDocument/publishDiagnostics']= function() end
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
+ 
   vim.lsp.diagnostic.on_publish_diagnostics, {
     -- Enable underline, use default values
     underline = false,
@@ -158,6 +213,7 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
     },
     -- Disable a feature
     update_in_insert = true,
+    
   })
 
 vim.cmd [[autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics({ focusable = false })]]
@@ -167,11 +223,12 @@ vim.cmd [[autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics({ fo
 
 local enhance_attach = function(client,bufnr)
   require'lsp_signature'.on_attach(cfg)
-  if client.resolved_capabilities.document_formatting then
-    format.lsp_before_save()
-  end
+  -- coq.lsp_ensure_capabilities()
+
   api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+
 end
+
 
 
 
@@ -194,19 +251,36 @@ lspconfig.tsserver.setup {
   end
 }
 
+
+local custom_on_attach_num = function(client, bufnr)
+  
+  -- This is the new thing added
+  local opts = {
+    noremap=true,
+    silent=true,
+  }
+end
+
+
+-- lspconfig.ccls.setup {
+--   cmd = {"ccls" },
+--   on_attach = enhance_attach,
+--   capabilities = capabilities,
+--   filetypes = { "c", "cpp", "objc", "objcpp" },
+
+-- }
+local clangd_flags = {
+  "--background-index",
+  "--cross-file-rename",
+  "--clang-tidy-checks=clang-diagnostic-*,clang-analyzer-*,-*,bugprone*,modernize*,performance*,-modernize-pass-by-value,-modernize-use-auto,-modernize-use-using,-modernize-use-trailing-return-type",
+}
+
 lspconfig.clangd.setup {
-  cmd = {
-    "clangd",
-    "--background-index",
-    "--suggest-missing-includes",
-    "--clang-tidy",
-    "--header-insertion=iwyu",
-  },
+  cmd = {"clangd", unpack(clangd_flags)},
   on_attach = enhance_attach,
   capabilities = capabilities,
 
 }
-
 
 
 
@@ -216,6 +290,10 @@ lspconfig.jedi_language_server.setup{
   on_attach = enhance_attach,
   capabilities = capabilities,
 }
+
+
+
+
 
 lspconfig.diagnosticls.setup {
   filetypes = { "python" },
@@ -257,14 +335,13 @@ lspconfig.diagnosticls.setup {
 }
 
 
-lspconfig.jdtls.setup{
-  filetypes = {"java"},
-  cmd = {'jdtls'},
+lspconfig.sqlls.setup{
+
+  filetypes = { "sql", "mysql" },
+  cmd = {"sql-language-server", "up", "--method", "stdio"},
   on_attach = enhance_attach,
   capabilities = capabilities,
-
 }
-
 
 
 -- You will have to Build a package for this .
@@ -311,6 +388,16 @@ lspconfig.sumneko_lua.setup {
   },
 }
 
+lspconfig.jdtls.setup {
+    on_attach = enhance_attach,
+    capabilities = capabilities,
+    cmd = {'jdtls'},
+    filetypes = { "java" },
+    -- init_options = {bundles = bundles}
+    -- on_attach = require'lsp'.common_on_attach
+}
+
+
 lspconfig.vimls.setup{
   on_attach = enhance_attach,
   capabilities = capabilities,
@@ -344,6 +431,8 @@ vim.fn.sign_define("LspDiagnosticsSignWarning", {text = "", texthl = "LspDiag
 vim.fn.sign_define("LspDiagnosticsSignInformation", {text = "", texthl = "LspDiagnosticsDefaultInformation"})
 vim.fn.sign_define("LspDiagnosticsSignHint", {text = "", texthl = "LspDiagnosticsDefaultHint"})
 vim.fn.sign_define("LspDiagnosticsSignOther", {text = "﫠", texthl = "LspDiagnosticsDefaultOther"})
+
+
 
 
 
@@ -437,3 +526,15 @@ vim.fn.sign_define("LspDiagnosticsSignOther", {text = "﫠", texthl = "LspDiagno
 
 -- vim.cmd [[autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()]]
 -- vim.cmd [[autocmd CursorHoldI * silent! lua vim.lsp.buf.signature_help()]]
+
+
+
+
+
+-- local home = os.getenv('HOME')
+-- local root_markers = {'gradlew', '.git'}
+-- local root_dir = require('jdtls.setup').find_root(root_markers)
+-- local workspace_folder = home .. "/.local/share/eclipse/" .. vim.fn.fnamemodify(root_dir, ":p:h:t")
+-- -- lots of other stuff
+-- config.cmd = {'/home/viv/workspace/java-lsp.sh', workspace_folder}
+-- require('jdtls').start_or_attach(config)

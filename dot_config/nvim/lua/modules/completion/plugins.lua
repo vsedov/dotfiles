@@ -1,5 +1,6 @@
 local completion = {}
 local conf = require('modules.completion.config')
+local remap = vim.api.nvim_set_keymap
 
 completion['neovim/nvim-lspconfig'] = {
   event = 'BufReadPre',
@@ -8,27 +9,96 @@ completion['neovim/nvim-lspconfig'] = {
   requires = {
   {'nvim-lua/lsp_extensions.nvim'},
   {'tjdevries/nlua.nvim'},
-  {'ray-x/lsp_signature.nvim'},
   {'https://github.com/onsails/lspkind-nvim'},
-  {'folke/lsp-colors.nvim'}
+  {'folke/lsp-colors.nvim'},
+  {'https://github.com/mfussenegger/nvim-jdtls'},
+
 
   -- {'nathunsmitty/nvim-ale-diagnostic',opt=true}
   }
 }
 
+
 completion['folke/todo-comments.nvim']  = {
+  opt=true,
   config = conf.todo_comments,
   after = 'trouble.nvim'
-
 }
 
--- For thoe that only use lsp - i use this for linting - python flake8 for 
--- this ale lint is disabled ale fix enabled and so on . 
+completion["hrsh7th/nvim-cmp"] = {
+  event = "InsertEnter", -- InsertCharPre
+  requires = {
+    {'ray-x/lsp_signature.nvim',after= "nvim-lspconfig"},
+    {"hrsh7th/cmp-buffer", after = "nvim-cmp"},
+    {"hrsh7th/cmp-nvim-lua", after = "nvim-cmp"},
+    {"hrsh7th/cmp-vsnip", after = "nvim-cmp"},
+    {"hrsh7th/cmp-calc", after = "nvim-cmp"},
+    {"hrsh7th/cmp-path", after = "nvim-cmp"},
+    {"https://github.com/ray-x/cmp-treesitter", after = "nvim-cmp"},
+    {"hrsh7th/cmp-nvim-lsp", after = "nvim-cmp"},
+    {"f3fora/cmp-spell", after = "nvim-cmp"},
+    {"octaltree/cmp-look", after = "nvim-cmp"},
+    {"dcampos/cmp-snippy",after = {"nvim-snippy", "nvim-cmp"}},
+    {"quangnguyen30192/cmp-nvim-ultisnips", event = "InsertCharPre", after = "nvim-cmp" },
+      -- {"hrsh7th/cmp-vsnip", after = "nvim-cmp"},
+    {"saadparwaiz1/cmp_luasnip", after = {"nvim-cmp", "LuaSnip"}},
+    {'tzachar/cmp-tabnine',
+            run = './install.sh',
+            after = 'cmp-spell',
+            config = conf.tabnine
+    }
+  },
+    config = conf.cmp,
+}
+
+-- can not lazyload, it is also slow...
+completion["L3MON4D3/LuaSnip"] = { -- need to be the first to load
+  event = "InsertEnter",
+  requires = {"rafamadriz/friendly-snippets", event = "InsertEnter"}, -- , event = "InsertEnter"
+  config = conf.luasnip
+}
+
+completion["kristijanhusak/vim-dadbod-completion"] = {
+  event = "InsertEnter",
+  ft = {'sql'},
+  setup = function()
+    vim.cmd([[autocmd FileType sql setlocal omnifunc=vim_dadbod_completion#omni]])
+    vim.cmd([[autocmd FileType sql,mysql,plsql lua require('cmp').setup.buffer({ sources = {{ name = 'vim-dadbod-completion' }} })]])
+    -- body
+  end
+}
+
+completion["SirVer/ultisnips"]={
+  requires = "honza/vim-snippets",
+  config = function()
+    vim.g.UltiSnipsRemoveSelectModeMappings = 0
+  end,
+}
+
+
+
+completion["dcampos/nvim-snippy"] = {
+  opt = true,
+  -- event = "InsertEnter",
+  -- requires = {"honza/vim-snippets", event = "InsertEnter"}, --event = "InsertEnter"
+  config = function()
+    require'snippy'.setup {}
+    -- body
+    -- vim.cmd([[imap <expr> <Tab> snippy#can_expand_or_advance() ? '<Plug>(snippy-expand-or-next)' : '<Tab>']])
+    -- vim.cmd([[imap <expr> <S-Tab> snippy#can_jump(-1) ? '<Plug>(snippy-previous)' : '<Tab>']])
+    -- vim.cmd([[smap <expr> <Tab> snippy#can_jump(1) ? '<Plug>(snippy-next)' : '<Tab>']])
+    -- vim.cmd([[smap <expr> <S-Tab> snippy#can_jump(-1) ? '<Plug>(snippy-previous)' : '<Tab>']])
+  end
+  -- after = "vim-snippets"
+}
+
+
+
+
 completion['https://github.com/folke/trouble.nvim'] = {
   config = conf.trouble,
 
 }
-
 
 
 completion['dense-analysis/ale'] = {
@@ -37,33 +107,18 @@ completion['dense-analysis/ale'] = {
 
 }
 
--- OUt of date need to replace this
-completion['glepnir/lspsaga.nvim'] = {
-  cmd = 'Lspsaga',
-}
-
--- completion['ray-x/navigator.lua'] = {
---   requires = {'ray-x/guihua.lua', run = 'cd lua/fzy && make'}
-
--- }
 
 
-
-completion['tzachar/compe-tabnine'] = {
-  run = './install.sh',
-  requires = {{'hrsh7th/nvim-compe'},
-              {'GoldsteinE/compe-latex-symbols'}},
-  config = conf.nvim_compe,
-
+completion['windwp/nvim-autopairs'] = {
+    after = 'nvim-cmp',
+    config = conf.autopairs
 }
 
 
-completion['hrsh7th/vim-vsnip'] = {
-  event = 'InsertCharPre',
-  config = conf.vim_vsnip
-}
+
 
 completion['nvim-telescope/telescope.nvim'] = {
+  
   cmd = 'Telescope',
   requires = {
     {'nvim-lua/popup.nvim', opt = true},
@@ -86,15 +141,11 @@ completion['pwntester/octo.nvim']={
   end
 }
 
---Leave for last i think ,. 
 
-completion['SirVer/ultisnips'] = {
-  requires = 'honza/vim-snippets',
-  config = conf.ultisnipsconf
-}
 
 
 completion['Pocco81/AbbrevMan.nvim'] = {
+  opt = true,
   config = conf.AbbrevMan
 }
 
@@ -116,11 +167,7 @@ completion['BenGH28/neo-runner.nvim'] = {
 
 
 -- This one seems to have more support and looks better . 
-completion['CRAG666/code_runner.nvim'] = {
-  requires = 'numtostr/FTerm.nvim',
-  config = conf.code_runner,
-}
-
+-- -- Currenty Broken , give a few days to see if it will be back up or not .
 
 
 
@@ -131,7 +178,6 @@ completion['kevinhwang91/nvim-bqf'] = {
 
 
 
-
 completion['mfussenegger/nvim-dap'] = {
   requires ={
     {'rcarriga/vim-ultest'},
@@ -139,6 +185,7 @@ completion['mfussenegger/nvim-dap'] = {
     {'theHamsta/nvim-dap-virtual-text'},
     {'mfussenegger/nvim-dap-python'},
     {'rcarriga/nvim-dap-ui'},
+    {'Pocco81/DAPInstall.nvim'},
   },
   run = ':UpdateRemotePlugins',
 
@@ -157,27 +204,14 @@ completion['mfussenegger/nvim-dap'] = {
   vim.g.ultest_virtual_text = 1
   vim.g.ultest_output_cols = 120
   vim.g.ultest_max_threads = 5
-
+  
 
   end
 }
 
-
-
-
-
 completion['lervag/vimtex'] = {
   config = conf.vimtex
 }
-
-
-
-
--- For most basic files , there is an autoformat . 
-completion['Chiel92/vim-autoformat'] = {
-
-}
-
 
 
 completion['michaelb/sniprun'] = {
@@ -187,27 +221,9 @@ completion['michaelb/sniprun'] = {
   -- This has not been 100% set up make sure you set it up later 
 
 }
--- completion['simrat39/symbols-outline.nvim'] = {
---   config = conf.outline
--- }
-
-
-
 
 completion['psf/black'] = {
 }
-
-
-
-
-
-completion['glepnir/smartinput.nvim'] = {
-  ft = 'go',
-  config = conf.smart_input
-}
-
-
-
 
 
 completion['mattn/vim-sonictemplate'] = {
@@ -223,3 +239,73 @@ completion['mattn/emmet-vim'] = {
 }
 
 return completion
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- completion["ms-jpq/coq_nvim"] = {
+--   -- event = "InsertCharPre",
+--   after = {"coq.artifacts"},
+--   branch = 'coq',
+
+--   config = function()
+--   vim.g.coq_settings = {
+--     ['clients.lsp.weight_adjust'] = 0.7,
+--     ['clients.tabnine.weight_adjust'] = 0.6,
+--     ['clients.snippets.weight_adjust'] = 0.5,
+--     ['clients.paths.weight_adjust'] = 0.4,
+--     ['clients.buffers.weight_adjust'] = 0.3,
+--     ['display.icons.mode'] = 'long',
+--     ['display.pum.source_context'] = { '[', ']' },
+--     ['display.pum.kind_context'] = { ' ', ' ' },
+--     ['match.proximate_lines']=25,
+--     ['match.fuzzy_cutoff'] = 0.5,
+
+--     keymap = {
+--           recommended  = true,
+--           jump_to_mark = '<c-k>',
+--           -- manual_complete ='<cr>',
+--           bigger_preview = '<c-l>',
+--     },
+
+--     clients = {
+--           lsp = {enabled = true},
+--           snippets = {enabled = true},
+--           tabnine = {enabled = true},
+--           tree_sitter = {enabled = true},
+
+--       },
+--     display = {
+--         pum={fast_close = false},
+
+--       },
+
+
+--   }
+--   vim.defer_fn(function() vim.opt.completeopt = 'menuone,noinsert' end, 1000) -- has to be deferred since COQ changes this setting
+--   vim.cmd([[COQnow --shut-up]])
+--   end
+-- }
+
+
+-- completion["ms-jpq/coq.artifacts"] = {
+--   -- opt = true,
+--   event = "InsertEnter",
+--   branch = 'artifacts'
+-- }
+

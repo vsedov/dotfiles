@@ -1,6 +1,12 @@
 local ui = {}
 local conf = require('modules.ui.config')
+local winwidth = function()
+  return vim.api.nvim_call_function("winwidth", {0})
+end
 
+
+ui["kyazdani42/nvim-web-devicons"] = {}
+ui["lambdalisue/glyph-palette.vim"] = {}
 --switch out with folke/tokyonight.nvim
 ui['folke/tokyonight.nvim'] = {
   config = conf.ui,
@@ -14,23 +20,45 @@ ui['glepnir/dashboard-nvim'] = {
 
 
 
-ui['glepnir/galaxyline.nvim'] = {
+ui['NTBBloodbath/galaxyline.nvim'] = {
   branch = 'main',
   config = conf.galaxyline,
   requires = 'kyazdani42/nvim-web-devicons'
 }
 
+-- ui["windwp/windline.nvim"] = {
+--   event = "UIEnter",
+--   config = conf.windline,
+--   -- requires = {'kyazdani42/nvim-web-devicons'},
+--   opt = true
+-- }
+
+ui["lambdalisue/glyph-palette.vim"] = {}
+
+
 ui['lukas-reineke/indent-blankline.nvim'] = {
-  event = 'BufRead',
-  branch = 'master',
   config = conf.indent_blakline
 }
 
 
-ui['akinsho/nvim-bufferline.lua'] = {
+
+ui["dstein64/nvim-scrollview"] = {config = conf.scrollview}
+
+
+ui["akinsho/bufferline.nvim"] = {
   config = conf.nvim_bufferline,
-  requires = 'kyazdani42/nvim-web-devicons'
+  event = "UIEnter",
+  diagnostics_update_in_insert = false,
+  -- after = {"aurora"}
+  -- requires = {'kyazdani42/nvim-web-devicons'}
+  opt = true
 }
+
+
+ui['kazhala/close-buffers.nvim'] = {
+  config = conf.buffers_close,
+}
+
 
 ui['kyazdani42/nvim-tree.lua'] = {
   cmd = {'NvimTreeToggle','NvimTreeOpen'},
@@ -44,7 +72,16 @@ ui['lewis6991/gitsigns.nvim'] = {
   requires = {'nvim-lua/plenary.nvim',opt=true}
 }
 
+-- ui['beauwilliams/focus.nvim']={
 
+--   config = function()
+--   local focus = require('focus')
+--   -- Displays a cursorline in the focussed window only
+--   -- Not displayed in unfocussed windows
+--   -- Default: true
+--   focus.cursorline = false
+--   end
+-- }
 
 
 ui['kdav5758/TrueZen.nvim'] = {
@@ -65,19 +102,16 @@ ui['folke/zen-mode.nvim'] = {
 
 }
 
+
+ui['https://github.com/yamatsum/nvim-cursorline'] = {
+}
+
+
+
+
 ui['folke/twilight.nvim'] = {
 }
 
-
-ui['mbbill/undotree'] = {
-  config = conf.undo
-}
-
--- Just a nicert delete 
-ui['famiu/bufdelete.nvim'] = {
-
-
-}
 
 
 

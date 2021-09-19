@@ -6,18 +6,10 @@ local map_args = bind.map_args
 require('keymap.config')
 
 local plug_map = {
-    ["i|<TAB>"]      = map_cmd('v:lua.tab_complete()'):with_expr():with_silent(),
-    ["i|<S-TAB>"]    = map_cmd('v:lua.s_tab_complete()'):with_silent():with_expr(),
 
 
-    ["i|<C-k>"]       = map_cmd([[compe#scroll({ 'delta': +4 })]]):with_noremap():with_expr():with_nowait(),
-    ["i|<C-j>"]       = map_cmd([[compe#scroll({ 'delta': -4 })]]):with_noremap():with_expr():with_nowait(),
-    ["i|<C-e>"]       = map_cmd([[compe#close('<C-e>')]]):with_noremap():with_expr():with_nowait(),
-    ["i|<CR>"]       = map_cmd([[compe#confirm({ 'keys': "\<Plug>delimitMateCR", 'mode': '' })]]):with_noremap():with_expr():with_nowait(),
-   
     -- person keymap
     ["n|mf"]             = map_cr("<cmd>lua require('internal.fsevent').file_event()<CR>"):with_silent():with_nowait():with_noremap();
-    ["n|gb"]             = map_cr("BufferLinePick"):with_noremap():with_silent(),
     
 
     -- Packer
@@ -31,53 +23,58 @@ local plug_map = {
     ["n|<leader>ll"]     = map_cr("LspLog"):with_noremap():with_silent():with_nowait(),
     ["n|<leader>lr"]     = map_cr("LspRestart"):with_noremap():with_silent():with_nowait(),
    
-
-    ["n|<C-f>"]          = map_cmd("<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>"):with_silent():with_noremap():with_nowait(),
-    ["n|<C-b>"]          = map_cmd("<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>"):with_silent():with_noremap():with_nowait(),
-    ["n|[e"]             = map_cr('Lspsaga diagnostic_jump_next'):with_noremap():with_silent(),
-    ["n|]e"]             = map_cr('Lspsaga diagnostic_jump_prev'):with_noremap():with_silent(),
-    ["n|K"]              = map_cr("Lspsaga hover_doc"):with_noremap():with_silent(),
-    ["n|ga"]             = map_cr("Lspsaga code_action"):with_noremap():with_silent(),
-    ["v|ga"]             = map_cu("Lspsaga range_code_action"):with_noremap():with_silent(),
-    ["n|gd"]             = map_cr('Lspsaga preview_definition'):with_noremap():with_silent(),
-    ["n|gD"]             = map_cmd("<cmd>lua vim.lsp.buf.implementation()<CR>"):with_noremap():with_silent(),
-    ["n|gs"]             = map_cr('Lspsaga signature_help'):with_noremap():with_silent(),
-    ["n|gr"]             = map_cr('Lspsaga rename'):with_noremap():with_silent(),
-    ["n|gh"]             = map_cr('Lspsaga lsp_finder'):with_noremap():with_silent(),
-    ["n|gt"]             = map_cmd("<cmd>lua vim.lsp.buf.type_definition()<CR>"):with_noremap():with_silent(),
     ["n|<Leader>cw"]     = map_cmd("<cmd>lua vim.lsp.buf.workspace_symbol()<CR>"):with_noremap():with_silent(),
-    ["n|<Leader>ce"]     = map_cr('Lspsaga show_line_diagnostics'):with_noremap():with_silent(),
-    
+    ["n|gD"]             = map_cmd("<cmd>lua vim.lsp.buf.implementation()<CR>"):with_noremap():with_silent(),
+
 
     ["n|<C-]>"]     = map_args("Template"),
     ["n|<Leader>tf"]     = map_cu('DashboardNewFile'):with_noremap():with_silent(),
-       -- I used code action decent sometimes it doesnt work 
+   
+    -- I used code action decent sometimes it doesnt work 
 
+    -- All commands with leader 
+    ["n|<Leader>gD"]     = map_cmd("<cmd>lua vim.lsp.buf.type_definition()<CR>"):with_noremap():with_silent(),
+    ["n|<Leader>gr"]     = map_cmd("<cmd>lua vim.lsp.buf.rename()<CR>"):with_noremap():with_silent(),
     ["n|<Leader>ca"]     = map_cmd("<cmd>lua vim.lsp.buf.code_action()<CR>"):with_noremap():with_silent(),
+    ["n|<Leader>g"]      = map_cu("LazyGit"):with_noremap():with_silent(),
+
+    -- On n map commands 
+    ["n|gD"]     = map_cmd("<cmd>lua vim.lsp.buf.declaration()<CR>"):with_noremap():with_silent(),
+    ["n|gd"]     = map_cmd("<cmd>lua vim.lsp.buf.definition()<CR>"):with_noremap():with_silent(),
+
+    ["n|K"]     = map_cmd("<cmd>lua vim.lsp.buf.hover()<CR>"):with_noremap():with_silent(),
+    ["n|gi"]     = map_cmd("<cmd>lua vim.lsp.buf.implementation()<CR>"):with_noremap():with_silent(),
+
+    ["n|<C-k>"]     = map_cmd("<cmd>lua vim.lsp.buf.signature_help()<CR>"):with_noremap():with_silent(),
+    ["n|rn"]     = map_cmd("<cmd>lua vim.lsp.buf.references()<CR>"):with_noremap():with_silent(),
+    
+    ["n|[d"]     = map_cmd("<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>"):with_noremap():with_silent(),
+    ["n|]d"]     = map_cmd("<cmd>lua vim.lsp.diagnostic.goto_next()<CR>"):with_noremap():with_silent(),
+
    -- doge
     ["n|<F1>"]           = map_cr("DogeGenerate"):with_noremap():with_silent(),
     ["n|<F2>"]           = map_cu("UndotreeToggle"):with_noremap():with_silent(),
     ["n|<F3>"]           = map_cu('Black'):with_noremap():with_silent(),
-    ["n|<F5>"]           = map_cu('FRunCode'):with_noremap():with_silent(),
 
     --NeoRunner_Horizontal 
     ["n|<F6>"]           = map_cu("NeoRunner"):with_noremap():with_silent(),
-    ["n|<Leader><F5>"]   = map_cu('RunCode'):with_noremap():with_silent(),
     
     -- Plugin nvim-tree
     ["n|<Leader>e"]      = map_cr('NvimTreeToggle'):with_noremap():with_silent(),
     ["n|<Leader>FF"]     = map_cr('NvimTreeFindFile'):with_noremap():with_silent(),
 
+    ["n|<Leader>ss"] = map_cu('SaveSession'):with_noremap(),
+    ["n|<Leader>sl"] = map_cu('RestoreSession'):with_noremap(),
+    ["n|<Leader>sd"] = map_cu('DeleteSession'):with_noremap(),
+
+
+    
     -- Plugin MarkdownPreview
     ["n|<Leader>om"]     = map_cu('MarkdownPreview'):with_noremap():with_silent(),
     -- Plugin DadbodUI
     ["n|<Leader>od"]     = map_cr('DBUIToggle'):with_noremap():with_silent(),
 
-    -- Plugin Floaterm
-    ["n|<A-d>"]          = map_cu('Lspsaga open_floaterm'):with_noremap():with_silent(),
-    ["t|<A-d>"]          = map_cu([[<C-\><C-n>:Lspsaga close_floaterm<CR>]]):with_noremap():with_silent(),
-    ["n|<Leader>g"]      = map_cu("Lspsaga open_floaterm lazygit"):with_noremap():with_silent(),
- 
+
 
     -- Far.vim
     ["n|<Leader>fz"]     = map_cr('Farf'):with_noremap():with_silent();
@@ -105,21 +102,15 @@ local plug_map = {
     ["n|j"]              = map_cmd('v:lua.enhance_jk_move("j")'):with_silent():with_expr(),
     ["n|k"]              = map_cmd('v:lua.enhance_jk_move("k")'):with_silent():with_expr(),
     -- Plugin QuickRun
-    ["n|<Leader>r"]     = map_cr("<cmd> lua require'internal.quickrun'.run_command()"):with_noremap():with_silent(),
+    -- ["n|<Leader>r"]     = map_cr("<cmd> lua require'internal.quickrun'.run_command()"):with_noremap():with_silent(),
     -- Plugin Vista or SymbolsOutline
     ["n|<Leader>v"]      = map_cu('SymbolsOutline'):with_noremap():with_silent(),
 
 
-    -- Plugin hrsh7th/vim-eft
-    -- ["n|;"]              = map_cmd("v:lua.enhance_ft_move(';')"):with_expr(),
-    -- ["x|;"]              = map_cmd("v:lua.enhance_ft_move(';')"):with_expr(),
-    -- ["n|f"]              = map_cmd("v:lua.enhance_ft_move('f')"):with_expr(),
-    -- ["x|f"]              = map_cmd("v:lua.enhance_ft_move('f')"):with_expr(),
-    -- ["o|f"]              = map_cmd("v:lua.enhance_ft_move('f')"):with_expr(),
-    -- ["n|F"]              = map_cmd("v:lua.enhance_ft_move('F')"):with_expr(),
-    -- ["x|F"]              = map_cmd("v:lua.enhance_ft_move('F')"):with_expr(),
-    -- ["o|F"]              = map_cmd("v:lua.enhance_ft_move('F')"):with_expr(),
-   
+    ["n|<Leader><TAB>"]    = map_cr('<CMD>lua require("FTerm").toggle()<CR>'):with_noremap():with_silent(),
+    
+    ["t|<Leader><TAB>"]    = map_cr('<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>'):with_noremap():with_silent(),
+
 
     -- Plugin vim_niceblock
     ["x|I"]              = map_cmd("v:lua.enhance_nice_block('I')"):with_expr(),
@@ -137,7 +128,6 @@ local plug_map = {
 
     -- git Blame 
     ["n|<Leader><Leader>tgb"]    = map_cu("ToggleBlameLine"):with_noremap():with_silent(),
-
 
 
     -- Nice command to list all breakpoints. .
@@ -162,11 +152,15 @@ local plug_map = {
     ["n|<Right>"]      = map_cmd("<cmd> call animate#window_delta_width(-10)<CR>"):with_noremap():with_silent(),
 
 
-
-
+    -- Plugin hrsh7th/vim-eft
+    ["n|;"]                 = map_cmd("v:lua.enhance_ft_move(';')"):with_expr(),
+    ["x|;"]                 = map_cmd("v:lua.enhance_ft_move(';')"):with_expr(),
+    -- Plugin EasyAlign
+    ["n|ga"]                = map_cmd("v:lua.enhance_align('nga')"):with_expr(),
+    ["x|ga"]                = map_cmd("v:lua.enhance_align('xga')"):with_expr(),
     --sniprun
 
-    ["v|<Leader>fr"]             = map_cmd("<Plug>SnipRun"):with_silent(),
+    ["v|<Leader>fr"]    = map_cmd("<Plug>SnipRun"):with_silent(),
     ["n|<Leader>fr"]    = map_cmd("<Plug>SnipRunOperator"):with_silent(),
     ["n|<Leader>ff"]    = map_cmd("<Plug>SnipRun"):with_silent(),
 
@@ -181,10 +175,6 @@ local plug_map = {
     ["n|<Leader><leader>2"]          = map_cu("TZAtaraxis<CR>"):with_noremap():with_silent(),
     ["n|<Leader><Leader>3"]          = map_cu("TZMinimalist<CR>"):with_noremap():with_silent(),
     ["n|<Leader><Leader>4"]          = map_cu("TZFocus<CR>"):with_noremap():with_silent(),
-
-
-
-
     --- new 
     ["n|<Leader>vf"]             = map_cmd("<Plug>(ultest-run-file)"):with_silent(),
     ["n|<Leader>vn"]             = map_cmd("<Plug>(ultest-run-nearest)"):with_silent(),
@@ -212,7 +202,66 @@ local plug_map = {
     ["v|<F4>"]    = map_cmd(":<c-u>HSRmHighlight<CR>"):with_noremap():with_silent(),
 
 
+    
+    -- Next other buffers with this one . 
+    ["n|<Leader>bth"]    = map_cr("BDelete hidden"):with_silent():with_nowait():with_noremap();
+    ["n|<Leader>btu"]    = map_cr("BDelete! nameless"):with_silent():with_nowait():with_noremap();
+    ["n|<Leader>btc"]    = map_cr("BDelete! this"):with_silent():with_nowait():with_noremap();
+
+    ["n|<Leader>bw"]    = map_cr("BWipeout! all"):with_silent():with_nowait():with_noremap();
+    ["n|<Leader>bc"]    = map_cr("BWipeout!"):with_silent():with_nowait():with_noremap();
+
+    --["n|<Leader>bc"]  = map_cr("Bdelete"):with_noremap():with_silent(),
+    --["n|<Leader>bw"]  = map_cr("Bwipeout"):with_noremap():with_silent(),
+
+
+    ["n|<Leader>bo"]     = map_cr("<cmd>lua require('internal.utils').only()<CR>"):with_silent():with_nowait():with_noremap();
+    ["n|<Leader>bv"]     = map_cr("BufferLinePick"):with_noremap():with_silent(),
+    ["n|<Leader>b["]     = map_cr("BufferLineMoveNext"):with_noremap():with_silent(),
+    ["n|<Leader>b]"]     = map_cr("BufferLineMovePrev"):with_noremap():with_silent(),
+    ["n|<Leader>bnn"]    = map_cr("BufferLineCycleNext"):with_noremap():with_silent(),
+    ["n|<Leader>bmm"]    = map_cr("BufferLineCyclePrev"):with_noremap():with_silent(),
+    ["n|gb"]             = map_cr("BufferLinePick"):with_noremap():with_silent(),
 
 };
 
 bind.nvim_load_mapping(plug_map)
+
+
+    -- ["i|<TAB>"]      = map_cmd('v:lua.tab_complete()'):with_expr():with_silent(),
+    -- ["i|<S-TAB>"]    = map_cmd('v:lua.s_tab_complete()'):with_silent():with_expr(),
+
+
+    -- ["i|<C-k>"]       = map_cmd([[compe#scroll({ 'delta': +4 })]]):with_noremap():with_expr():with_nowait(),
+    -- ["i|<C-j>"]       = map_cmd([[compe#scroll({ 'delta': -4 })]]):with_noremap():with_expr():with_nowait(),
+    -- ["i|<C-e>"]       = map_cmd([[compe#close('<C-e>')]]):with_noremap():with_expr():with_nowait(),
+    -- ["i|<CR>"]       = map_cmd([[pumvisible() ? (complete_info().selected == -1 ? "\<C-e><CR>" : "\<C-y>") : "\<CR>"})]]):with_noremap():with_expr():with_nowait(),
+
+
+-- remap('i', '<c-e>', [[pumvisible() ? "<c-e><esc>" : "<esc>"]], { expr = true, noremap = true })
+-- remap('i', '<TAB>', [[pumvisible() ? "<c-e><c-c>" : "<c-c>"]], { expr = true, noremap = true })
+-- remap('i', '<TAB>', [[pumvisible() ? "<c-n>" : "<tab>"]], { expr = true, noremap = true })
+-- remap('i', '<S-TAB>', [[pumvisible() ? "<c-p>" : "<bs>"]], { expr = true, noremap = true })
+-- ino <silent><expr> <Esc>   pumvisible() ? "\<C-e><Esc>" : "\<Esc>"
+-- ino <silent><expr> <C-c>   pumvisible() ? "\<C-e><C-c>" : "\<C-c>"
+-- ino <silent><expr> <BS>    pumvisible() ? "\<C-e><BS>"  : "\<BS>"
+-- ino <silent><expr> <CR>    pumvisible() ? (complete_info().selected == -1 ? "\<C-e><CR>" : "\<C-y>") : "\<CR>"
+-- ino <silent><expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+-- ino <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<BS>"
+
+    -- -- Plugin Floaterm
+    -- ["n|<A-d>"]          = map_cu('Lspsaga open_floaterm'):with_noremap():with_silent(),
+    -- ["t|<A-d>"]          = map_cu([[<C-\><C-n>:Lspsaga close_floaterm<CR>]]):with_noremap():with_silent(),
+    -- ["n|<Leader>g"]      = map_cu("Lspsaga open_floaterm lazygit"):with_noremap():with_silent(),
+    -- ["n|<Leader>ce"]     = map_cr('Lspsaga show_line_diagnostics'):with_noremap():with_silent(),
+    -- ["n|<C-f>"]          = map_cmd("<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>"):with_silent():with_noremap():with_nowait(),
+    -- ["n|<C-b>"]          = map_cmd("<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>"):with_silent():with_noremap():with_nowait(),
+    -- ["n|[e"]             = map_cr('Lspsaga diagnostic_jump_next'):with_noremap():with_silent(),
+    -- ["n|]e"]             = map_cr('Lspsaga diagnostic_jump_prev'):with_noremap():with_silent(),
+    -- ["n|K"]              = map_cr("Lspsaga hover_doc"):with_noremap():with_silent(),
+    -- ["n|ga"]             = map_cr("Lspsaga code_action"):with_noremap():with_silent(),
+    -- ["v|ga"]             = map_cu("Lspsaga range_code_action"):with_noremap():with_silent(),
+    -- ["n|gd"]             = map_cr('Lspsaga preview_definition'):with_noremap():with_silent(),
+    -- ["n|gs"]             = map_cr('Lspsaga signature_help'):with_noremap():with_silent(),
+    -- ["n|gr"]             = map_cr('Lspsaga rename'):with_noremap():with_silent(),
+    -- ["n|gh"]             = map_cr('Lspsaga lsp_finder'):with_noremap():with_silent(),

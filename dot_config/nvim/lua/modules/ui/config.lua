@@ -4,19 +4,39 @@ function config.galaxyline()
   require('modules.ui.eviline')
 end
 
-function config.felineconfig()
-  require('modules.ui.feline')
-end
 
-function config.nvim_bufferline()
-  require('bufferline').setup{
-    options = {
-      modified_icon = '✥',
-      buffer_close_icon = '',
-      mappings = true,
-      always_show_bufferline = false,
-    }
-  }
+-- function config.nvim_bufferline()
+--   require('bufferline').setup{
+--     options = {
+--       modified_icon = '✥',
+--       buffer_close_icon = '',
+--       diagnostics = "nvim_lsp",
+
+--       diagnostics_indicator = function(count, level)
+--         local icon = level:match("error") and " " or " "
+--         return " " .. icon .. count
+--       end,
+--       show_close_icon = false,
+--       always_show_bufferline = true,
+--       show_buffer_close_icons = false,
+--     },  
+--   }
+-- end
+
+function config.buffers_close()
+  require('close_buffers').setup({
+    preserve_window_layout = { 'this' },
+    next_buffer_cmd = function(windows)
+      require('bufferline').cycle(1)
+      local bufnr = vim.api.nvim_get_current_buf()
+
+      for _, window in ipairs(windows) do
+        vim.api.nvim_win_set_buf(window, bufnr)
+      end
+    end,
+  })
+
+
 end
 
 function config.dashboard()
@@ -157,7 +177,7 @@ function config.indent_blakline()
     "" -- for all buffers without a file type
   }
   vim.g.indent_blankline_buftype_exclude = {"terminal", "nofile"}
-  vim.g.indent_blankline_show_trailing_blankline_indent = false
+  vim.g.indent_blankline_show_trailing_blankline_indent = true
   vim.g.indent_blankline_show_current_context = true
   vim.g.indent_blankline_context_patterns = {
     "class",
@@ -182,7 +202,7 @@ end
 function config.ui()
   -- vim.cmd('colorscheme boo')
   vim.g.tokyonight_style = "night"
-  vim.g.tokyonight_transparent = true
+  vim.g.tokyonight_transparent = false
 
   vim.g.tokyonight_enable_italic_comment = true
   vim.g.tokyonight_enable_italic = true
@@ -190,33 +210,17 @@ function config.ui()
 
   vim.g.tokyonight_terminal_colors = true
 
-  vim.g.tokyonight_dark_sidebar = true
   vim.g.tokyonight_dark_float = true
   vim.g.tokyonight_sidebars = { "qf", "NvimTree", "NvimTreeNormal", "packer" }
   
 
   vim.g.tokyonight_colors = { hint = "orange", error = "#ff0000" }
+  vim.g.tokyonight_transparent_sidebar = true
+  vim.g.tokyonight_dark_sidebar = false
 
 
   -- Load the colorscheme
   vim.cmd[[colorscheme tokyonight]]
-
-
--- Example config in lu
-  -- vim.g.calvera_style = 'deep ocean'
-  -- vim.g.calvera_italic_comments = true
-  -- vim.g.calvera_italic_keywords = true
-  -- vim.g.calvera_italic_functions = true
-  -- vim.g.calvera_italic_variables = false
-  -- vim.g.calvera_contrast = true
-  -- vim.g.calvera_lighter_contrast=true
-
-  -- vim.g.calvera_borders = true
-  -- vim.g.calvera_disable_background = true
-  -- vim.g.calvera_hide_eob = true
-  -- -- vim.g.calvera_custom_colors = {contrast = "#3c021b"}
-  -- -- Required Setting
-  -- require('calvera').set()
 end
 
 
@@ -247,9 +251,61 @@ function config.truezen()
 
 end 
 
+function config.windline()
+  if not packer_plugins["nvim-web-devicons"].loaded then
+    packer_plugins["nvim-web-devicons"].loaded = true
+    require"packer".loader("nvim-web-devicons")
+  end
+
+  require("modules.ui.eviline")
+end
+
+function config.scrollview()
+  if vim.wo.diff then
+    return
+  end
+  local w = vim.api.nvim_call_function("winwidth", {0})
+  if w < 70 then
+    return
+  end
+
+  vim.g.scrollview_column = 1
+end
+
+function config.scrollbar()
+  if vim.wo.diff then
+    return
+  end
+  local w = vim.api.nvim_call_function("winwidth", {0})
+  if w < 70 then
+    return
+  end
+  local vimcmd = vim.api.nvim_command
+  vimcmd("augroup " .. "ScrollbarInit")
+  vimcmd("autocmd!")
+  vimcmd("autocmd CursorMoved,VimResized,QuitPre * silent! lua require('scrollbar').show()")
+  vimcmd("autocmd WinEnter,FocusGained           * silent! lua require('scrollbar').show()")
+  vimcmd("autocmd WinLeave,FocusLost,BufLeave    * silent! lua require('scrollbar').clear()")
+  vimcmd("autocmd WinLeave,BufLeave    * silent! DiffviewClose")
+  vimcmd("augroup end")
+  vimcmd("highlight link Scrollbar Comment")
+  vim.g.sb_default_behavior = "never"
+  vim.g.sb_bar_style = "solid"
+end
 
 
-
+function config.minimap()
+  local w = vim.api.nvim_call_function("winwidth", {0})
+  if w > 180 then
+    vim.g.minimap_width = 12
+  elseif w > 120 then
+    vim.g.minimap_width = 10
+  elseif w > 80 then
+    vim.g.minimap_width = 7
+  else
+    vim.g.minimap_width = 2
+  end
+end
 
 
 return config

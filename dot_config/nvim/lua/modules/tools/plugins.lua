@@ -1,19 +1,65 @@
 local tools = {}
 local conf = require('modules.tools.config')
 
-tools['kristijanhusak/vim-dadbod-ui'] = {
-  cmd = {'DBUIToggle','DBUIAddConnection','DBUI','DBUIFindBuffer','DBUIRenameBuffer'},
+
+tools["kristijanhusak/vim-dadbod-ui"] = {
+  cmd = {"DBUIToggle", "DBUIAddConnection", "DBUI", "DBUIFindBuffer", "DBUIRenameBuffer", "DB"},
   config = conf.vim_dadbod_ui,
-  requires = {{'tpope/vim-dadbod',opt = true}}
+  requires = {"tpope/vim-dadbod", ft = {'sql'}},
+  opt = true,
+  setup = function()
+    vim.g.dbs = {
+      eraser = 'postgres://postgres:password@localhost:5432/eraser_local',
+      staging = 'postgres://postgres:password@localhost:5432/my-staging-db',
+      wp = 'mysql://root@localhost/wp_awesome'
+    }
+  end
 }
 
-tools['editorconfig/editorconfig-vim'] = {
-  ft = { 'go','typescript','javascript','vim','rust','zig','c','cpp' }
+
+tools["TimUntersberger/neogit"] = {
+  cmd = {"Neogit"},
+  config = function()
+    local neogit = require('neogit')
+    neogit.setup {}
+  end
+}
+
+tools["editorconfig/editorconfig-vim"] = {
+  opt = true,
+  cmd = {"EditorConfigReload"}
+  -- ft = { 'go','typescript','javascript','vim','rust','zig','c','cpp' }
 }
 
 tools['b3nj5m1n/kommentary'] = {
   config = conf.kommentary,
 }
+
+tools["nanotee/zoxide.vim"] = {cmd = {"Z", "Lz", "Zi"}}
+tools["liuchengxu/vim-clap"] = {
+  cmd = {"Clap"},
+  run = function()
+    vim.fn["clap#installer#download_binary"]()
+  end,
+  setup = conf.clap,
+  config = conf.clap_after
+}
+tools["sindrets/diffview.nvim"] = {
+  cmd = {"DiffviewOpen", "DiffviewFileHistory", "DiffviewFocusFiles", "DiffviewToggleFiles", "DiffviewRefresh"},
+   config = conf.diffview
+}
+
+
+tools['vimwiki/vimwiki'] = {
+  opt = true,
+  branch = "dev",
+  keys = {"<leader>ww", "<leader>wt", "<leader>wi"},
+  event = {"BufEnter *.wiki"},
+  setup = conf.vimwiki_setup,
+  config = conf.vimwiki_config
+}
+
+
 
 
 tools['relastle/vim-nayvy'] ={
@@ -37,8 +83,18 @@ tools['psliwka/vim-smoothie'] ={
     vim.g.smoothie_experimental_mappings =1
   end
 }
---^D ^U ^F ^B gg1 G1
 
+tools["kamykn/spelunker.vim"] = {
+  opt = true, fn = {"spelunker#check"},
+  setup = conf.spelunker,
+  config = conf.spellcheck,
+}
+
+tools["rhysd/vim-grammarous"] = {
+  opt = true,
+  cmd = {"GrammarousCheck"},
+  ft = {"markdown", "txt"}
+}
 
 
 
@@ -55,19 +111,16 @@ tools['nacro90/numb.nvim'] = {
 }
 
 
-tools['AndrewRadev/splitjoin.vim'] = {
-  opt = true,
-  cmd = {'SplitjoinSplit', 'SplitjoinJoin'},
-  config = function ()
-    vim.g.splitjoin_split_mapping = ''
-    vim.g.splitjoin_join_mapping  = ''
-  end
-}
 
+-- quick code snipit , very nice
+tools['https://github.com/rktjmp/paperplanes.nvim'] = {
+    config = function ()
+      require("paperplanes").setup({
+        register = "+",
+        provider = "dpaste.org"
+      })
+    end
 
-
-
-tools['gennaro-tedesco/nvim-jqx'] = {
 }
 
 
@@ -82,6 +135,7 @@ tools['jbyuki/nabla.nvim'] = {
 }
 
 tools['liuchengxu/vista.vim'] = {
+  opt=true,
   cmd = 'Vista',
   config = conf.vim_vista
 }
@@ -141,21 +195,36 @@ vim.g.symbols_outline = {
 }
 
 tools['kdheepak/lazygit.nvim'] = {
-  cmd = {'LazyGit', 'LazyGitConfig'},
+  opt = true,
+  cmd = {'LazyGit'},
   config = function()
     vim.g.lazygit_floating_window_winblend = 2
   end
 }
 
 
-tools['brooth/far.vim'] = {
-  cmd = {'Far','Farp'},
-  config = function ()
-    vim.g['far#source'] = 'rg'
-  end
-}
+
+tools["brooth/far.vim"] = {
+  cmd = {"Farr", "Farf"},
+  run = function()
+    require"packer".loader('far.vim')
+    vim.cmd [[UpdateRemotePlugins]]
+  end,
+  config = conf.far,
+  opt = true
+} -- brooth/far.vim
 
 
+
+-- tools['https://github.com/rcarriga/nvim-notify']={
+
+--   config = function()
+--     require("notify")("My super important message")
+--     vim.notify = require("notify")
+--     vim.notify("This is an error message", "error")
+
+--   end
+-- }
 
 tools['iamcco/markdown-preview.nvim'] = {
   run = ':call mkdp#util#install()',
@@ -172,15 +241,12 @@ tools['iamcco/markdown-preview.nvim'] = {
 -- Nice toools 
 
 
-tools['kevinhwang91/nvim-hlslens'] = {
-  config = function ()
-    require('hlslens').setup({
-      calm_down = true,
-      nearest_only = true,
-      nearest_float_when = 'always'
-    })
-  end
-}
+-- tools['kevinhwang91/nvim-hlslens'] = {
+--   config = function ()
+--     require('hlslens').setup({
+--     })
+--   end
+-- }
 
 
 return tools
