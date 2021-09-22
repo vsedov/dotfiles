@@ -163,6 +163,16 @@ editor['ggandor/lightspeed.nvim'] = {
 }
 
 
+editor['simnalamburt/vim-mundo']  = { opt = true, cmd ={'MundoToggle', 'MundoShow', 'MundoHide'},
+run = function() 
+  vim.cmd[[packadd vim-mundo]]
+  vim.cmd[[UpdateRemotePlugins]]
+end,
+setup = function ()
+  -- body
+  vim.g.mundo_prefer_python3=1
+end
+}
 
 editor['dhruvasagar/vim-table-mode'] = {
   cmd = {'TableModeToggle'}
