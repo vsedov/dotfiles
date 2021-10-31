@@ -16,9 +16,15 @@
 
 #exec --no-startup-id redshift -l 51.525026:-0.341500
 
+# Only enable gaps on a workspace when there is at least one container
+# smart_gaps on
+
+focus_on_window_activation smart
+
 
 exec --no-startup-id nm-applet
 exec --no-startup-id systemctl --user restart pulseaudio.service
+
 
 
 # Let Hdmi - all of that be a buffer monitro and let the 4k , one deal with other main process which relate to coding .
@@ -45,7 +51,10 @@ exec_always --no-startup-id picom --experimental-backends --backend glx --vsync 
 #Config will have to change after third monitor .
 exec_always --no-startup-id ~/Documents/Wallpaper/./wallpaper-wrap.sh
 exec_always --no-startup-id ~/.config/polybar/launch.sh
-exec_always --no-startup-id ibus-daemon &
+exec_always --no-startup-id ibus-daemon&
+exec_always --no-startup-id autotiling
+
+
 # I tend to use ibus for languages when learning japanese , so its quite nice
 
 
@@ -55,10 +64,10 @@ exec_always --no-startup-id i3-msg "workspace $ws1; append_layout /home/viv/.i3/
 
 
 
-exec  alacritty --title matrix -e zsh -c 'ranger'
-exec  alacritty --title cava -e zsh -c 'cava'
-exec  alacritty --title neo -e zsh -c 'srfetch && zsh'
-exec  alacritty --title htop -e zsh -c 'gotop -a'
+exec  kitty --title matrix -e zsh -c 'ranger'
+exec  kitty --title cava -e zsh -c 'cava'
+exec  kitty --title neo -e zsh -c 'srfetch && zsh'
+exec  kitty --title htop -e zsh -c 'gotop -a'
 
 
 exec --no-startup-id xrandr --output DP-0 --mode 1920x1080 --rate 240.00
@@ -116,6 +125,9 @@ workspace "3:" output DP-0
 for_window [workspace = ""] floating enable
 #floating_minimum_size 39 x 39
 #floating_maximum_size 700 x 450
+
+floating_modifier $mod
+
 exec_always --no-startup-id i3-msg "workspace ; exec urxvt -e zsh -c 'fortune | cowsay -f vader && zsh'"
 
 
@@ -133,7 +145,6 @@ set $inactive-bg-color  #435E75
 
 #Scrolling - doesn't work
 exec --no-startup-id synclient HorizEdgeScroll=1 VertEdgeScroll=1 VertScrollDelta=-111
-
 #WORKSPACE STARTUP
 
 #Gaps and Window
@@ -152,17 +163,52 @@ set $unfocused_border #72afff
 set $focused_border #82ff80
 
 #                       class   border  backgr. text indicator
-client.focused          $base05 $base05 $base00 $base05
-client.focused_inactive $base03 $base03 $base05 $base03
-client.unfocused        $base03 $base03 $base05 $base00
-client.urgent $base01   $base01 $base05 $base00
+# client.focused          $base05 $base05 $base00 $base05
+# client.focused_inactive $base03 $base03 $base05 $base03
+# client.unfocused        $base03 $base03 $base05 $base00
+# client.urgent $base01   $base01 $base05 $base00
+#
+# client.background       #ffffff
+
+bar {
+    colors {
+    background #2f343f
+    statusline #2f343f
+    separator #4b5262
+
+    # colour of border, background, and text
+    focused_workspace   #2f343f #bf616a #d8dee8
+    active_workspace    #2f343f #2f343f #d8dee8
+    inactive_workspace  #2f343f #2f343f #d8dee8
+    urgent_workspace    #2f343f #ebcb8b #2f343f
+    }
+    status_command i3status
+}
+
+client.focused          #bf616a #2f343f #d8dee8 #bf616a #d8dee8
+client.focused_inactive #2f343f #2f343f #d8dee8 #2f343f #2f343f
+client.unfocused        #2f343f #2f343f #d8dee8 #2f343f #2f343f
+client.urgent           #2f343f #2f343f #d8dee8 #2f343f #2f343f
+client.placeholder      #2f343f #2f343f #d8dee8 #2f343f #2f343f
+client.background       #2f343f
+
+# Make the currently focused window a scratchpad
+bindsym $mod+Shift+minus move scratchpad
+
+# Show the first scratchpad window
+bindsym $mod+minus scratchpad show
 
 
+font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+font pango:DejaVu Sans Mono 9
+font pango:DejaVu Sans Mono, Terminus Bold Semi-Condensed 9
+font pango:Terminus 9px
 
 #Check .Xresources for font
 
+
 # start a terminal
-bindsym $mod+Return exec alacritty
+bindsym $mod+Return exec kitty
 
 
 # kill focused window
@@ -170,6 +216,8 @@ bindsym $mod+q kill
 
 # start rofi
 bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -bw 0 -width 100 -padding 400 -fullscreen
+# Search Engine thing that i added
+bindsym $mod+Tab exec rofi-surfraw
 
 
 # change focus
@@ -209,19 +257,25 @@ bindsym $mod+f fullscreen toggle
 bindsym $mod+o layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
-
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
 
+
+
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
-
 # focus the parent container
 bindsym $mod+a focus parent
-
 # focus the child container
-#bindsym $mod+d focus child
+bindsym $mod+z focus child
 
+bindsym $mod+x layout toggle tabbed splitv
+
+# put YouTube into fullscreen and execute this for media mode
+bindsym $mod+y fullscreen disable; floating enable; resize set 400 300; sticky enable; move window to position 2140 20
+
+focus_wrapping no
+bindsym $mod+b border toggle
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -268,7 +322,7 @@ assign [class = "urxvt"] $ws1
 assign [class = "Binance"] $ws2
 assign [class = "Subl"] $ws3
 assign [class = "discord"] $ws4
-assign [class = "lightcord"] $ws4
+assign [class = "discord"] $ws4
 assign [class = "whatsapp-nativefier-d40211"] $ws6
 assign [class = "Franz"] $ws6
 
@@ -367,11 +421,9 @@ bindsym XF86AudioMute exec amixer -q -D pulse sset Master toggle;
 
 
 
-exec /usr/bin/waterfox-current
-exec /usr/bin/lightcord
+exec /usr/bin/discord
 exec /usr/bin/subl
 exec /usr/bin/franz
-exec /usr/bin/lampe-gtk
 exec /usr/bin/lampe-gtk
 exec /usr/bin/binance
 
@@ -390,8 +442,6 @@ exec  "sh -c 'sleep 15; exec pulseeffects'"
 #39
 #50
 #60
-
-
 
 
 
@@ -464,5 +514,26 @@ mode "restore" {
   bindsym $mod+n mode "default"
 }
 
-bindsym $mod+n mode "restore"
+bindsym $mod+m mode "restore"
 for_window [class="Frame"] floating disable
+
+
+# bar {
+#         mode hide
+#         hidden_state hide
+#         modifier $mod
+#         position top
+#         status_command i3status -c ~/.i3/i3status.conf
+#         tray_output eDP-1
+#         tray_output DP-2-1
+#         tray_output DP-2-2
+#         font pango:Consolas 10
+#         colors {
+#             ## solarized
+#             background #073642
+#             statusline #eee8d5
+#             focused_workspace #cb4b16 #cb4b16 #eee8d5
+#             active_workspace #cb4b16 #cb4b16 #eee8d5
+#             inactive_workspace #b58900 #b58900 #eee8d5
+#         }
+# }
