@@ -1,0 +1,43 @@
+[
+  {
+    "command": [
+      "/usr/bin/okular",
+      "/home/viv/Desktop/PDF/First Year Past Papers/CS1840-17.pdf",
+      "/home/viv/Desktop/PDF/First Year Past Papers/CS1840-18.pdf",
+      "/home/viv/Desktop/PDF/First Year Past Papers/CS1840-16.pdf"
+    ],
+    "working_directory": "/home/viv/Desktop/PDF/First Year Past Papers"
+  },
+  {
+    "command": [
+      "/usr/bin/okular",
+      "/home/viv/Desktop/PDF/First Year Past Papers/CS1840-19.pdf"
+    ],
+    "working_directory": "/home/viv/Desktop/PDF/First Year Past Papers"
+  },
+  {
+    "command": [
+      "/usr/bin/okular",
+      "/home/viv/Desktop/PDF/First Year Past Papers/CS1840-17.pdf",
+      "/home/viv/Desktop/PDF/First Year Past Papers/CS1840-18.pdf",
+      "/home/viv/Desktop/PDF/First Year Past Papers/CS1840-16.pdf"
+    ],
+    "working_directory": "/home/viv/Desktop/PDF/First Year Past Papers"
+  },
+  {
+    "command": [
+      "/usr/bin/okular",
+      "/home/viv/Desktop/PDF/First Year Past Papers/CS1840-17.pdf",
+      "/home/viv/Desktop/PDF/First Year Past Papers/CS1840-18.pdf",
+      "/home/viv/Desktop/PDF/First Year Past Papers/CS1840-16.pdf"
+    ],
+    "working_directory": "/home/viv/Desktop/PDF/First Year Past Papers"
+  },
+  {
+    "command": [
+      "/usr/bin/okular",
+      "/home/viv/Desktop/PDF/Computer Science/IS/Computer Networking A Top-Down Approach, 7th Edition by James Kurose, Keith Ross (z-lib.org).pdf"
+    ],
+    "working_directory": "/home/viv/Desktop/PDF/Computer Science/IS"
+  }
+]

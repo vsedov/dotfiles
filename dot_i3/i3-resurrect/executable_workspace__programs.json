@@ -1,0 +1,12 @@
+[
+  {
+    "command": [
+      "/usr/bin/urxvt",
+      "-e",
+      "zsh",
+      "-c",
+      "fortune | cowsay -f vader && zsh"
+    ],
+    "working_directory": "/home/viv"
+  }
+]

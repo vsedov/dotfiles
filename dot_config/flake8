@@ -1,0 +1,5 @@
+[flake8]
+ignore =E800,E226,E302,ANN101,ANN102,ANN002,ANN003,ANN204,W503,N802
+max-line-length = 90
+exclude = tests/*
+extend-ignore =E226,E302,ANN101,ANN102,ANN002,ANN003,ANN204,W503,N802

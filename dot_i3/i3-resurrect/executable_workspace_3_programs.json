@@ -1,0 +1,21 @@
+[
+  {
+    "command": [
+      "/opt/sublime_text/sublime_text",
+      "--detached"
+    ],
+    "working_directory": "/home/viv"
+  },
+  {
+    "command": [
+      "/usr/bin/kitty"
+    ],
+    "working_directory": "/home/viv"
+  },
+  {
+    "command": [
+      "/usr/bin/kitty"
+    ],
+    "working_directory": "/home/viv"
+  }
+]

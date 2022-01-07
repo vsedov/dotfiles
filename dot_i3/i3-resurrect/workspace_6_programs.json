@@ -1,0 +1,21 @@
+[
+  {
+    "command": [
+      "/usr/lib/electron/electron",
+      "/usr/lib/franz/resources/app.asar"
+    ],
+    "working_directory": "/home/viv"
+  },
+  {
+    "command": [
+      "/usr/bin/alacritty"
+    ],
+    "working_directory": "/home/viv"
+  },
+  {
+    "command": [
+      "/usr/lib/firefox/firefox"
+    ],
+    "working_directory": "/home/viv"
+  }
+]

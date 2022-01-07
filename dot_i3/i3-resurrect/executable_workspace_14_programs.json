@@ -1,0 +1,8 @@
+[
+  {
+    "command": [
+      "/usr/bin/alacritty"
+    ],
+    "working_directory": "/home/viv/GitHub/NeuralNetworks"
+  }
+]

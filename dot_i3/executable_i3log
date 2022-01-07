@@ -1,0 +1,6 @@
+12/09/19 15:41:24 - ERROR: Using Xinerama instead of RandR. This option should be avoided at all cost because it does not refresh the list of screens, so you cannot configure displays at runtime. Please check if your driver really does not support RandR and disable this option as soon as you can.
+12/09/19 15:41:24 - i3 4.17.1 (2019-08-30) starting
+12/09/19 15:41:24 - Parsing configfile /home/viv/.i3/config
+12/09/19 15:41:24 - deciding for version 4 due to this line: # i3 config file (v4)
+12/09/19 15:41:24 - [libi3] ../i3-4.17.1/../i3-4.17.1/libi3/font.c Using Pango font URWGothic-Book, size 11
+12/09/19 15:41:24 - ERROR: Another window manager seems to be running (X error 10)

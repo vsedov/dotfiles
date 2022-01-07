@@ -1,0 +1,8 @@
+[
+  {
+    "command": [
+      "/usr/bin/pulseeffects"
+    ],
+    "working_directory": "/home/viv"
+  }
+]

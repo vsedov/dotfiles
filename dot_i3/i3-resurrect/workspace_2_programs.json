@@ -1,0 +1,8 @@
+[
+  {
+    "command": [
+      "/opt/Binance/binance"
+    ],
+    "working_directory": "/home/viv"
+  }
+]

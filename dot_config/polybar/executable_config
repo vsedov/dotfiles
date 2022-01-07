@@ -22,6 +22,52 @@ secondary = #F3F3BA
 foreground-mod= ${colors.background}
 
 
+[bar/MainBarBottom]
+monitor = ${env:MONITOR:}
+bottom = true
+width = 100%
+height = 20
+offset-x = 0%
+;offset-y = 10%
+radius = 0.0
+fixed-center = true
+
+scroll-up = i3wm-wsnext
+scroll-down = i3wm-wsprev
+
+background = ${bar/top.background}
+foreground = ${bar/top.foreground}
+
+line-color = ${bar/top.background}
+line-size = 2
+
+spacing = 3
+padding-right = 4
+module-margin-left = 0
+module-margin-right = 6
+
+font-0 = Misc Termsyn:size=8;1
+;font-0 = Ubuntu:size=10;1
+font-1 = FontAwesome:fontformat=truetype:size=8;1
+font-3 = Font Awesome 5 Free:style=Regular:pixelsize=8;1
+font-4 = Font Awesome 5 Free:style=Solid:pixelsize=8;1
+font-5 = Font Awesome 5 Brands:pixelsize=8;1
+font-2 = sm4tik:pixelsize=8;1
+
+modules-left = info-hackspeed title
+modules-center =  info-cava
+modules-right = redshift cpu memory backlight
+
+tray-position = right
+tray-scale = 1.0
+;tray-transparent = true
+tray-background = ${self.background}
+tray-maxsize = 64
+
+tray-offset-y = 0
+
+
+
 
 [bar/MainBar]
 monitor = ${env:MONITOR:}
@@ -63,9 +109,10 @@ font-2 = sm4tik:pixelsize=8;1
 
 
 
-modules-left = i3 
-modules-center =  date weather filesystem 
-modules-right =    cpu title  volume  powermenu
+
+modules-left = i3
+modules-center =  date weather filesystem
+modules-right =   music cputop  volume  powermenu
 
 tray-position = hidden
 tray-padding = 11
@@ -99,6 +146,17 @@ click-left = xdg-open "https://google.de/search?q=weather"
 
 ; This tells the bar to use Roboto when rendering the label
 
+
+[module/music]
+type = custom/script
+interval = 0.1
+bar-width = 50%
+
+;format-background = ${colors.background-alt}
+;format-foreground = ${colors.foreground-alt}
+
+label = " %output% "
+exec = ~/.config/polybar/mpris.sh
 
 
 [module/i3]
@@ -152,6 +210,7 @@ label-unfocused = %name%
 label-unfocused-padding = 4
 
 ; Available tokens:
+
 ;   %name%
 ;   %icon%
 ;   %index%
@@ -202,12 +261,47 @@ ramp-3 = 
 ramp-4 = 
 ramp-foreground = ${colors.foreground-alt}
 
+[module/backlight]
+type = internal/backlight
+format = <label>
+#format = <ramp> <bar>
+
+card =  intel_backlight
+
+label = %percentage%%
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+
+bar-width = 10
+bar-indicator = |
+bar-indicator-font = 3
+bar-indicator-foreground = #ff
+bar-fill = ─
+bar-fill-font = 3
+bar-fill-foreground = #c9665e
+bar-empty = ─
+bar-empty-font = 3
+bar-empty-foreground = #44
+
+
+
+
+[module/redshift]
+type = custom/script
+format-prefix = " "
+exec = source ~/.config/polybar/polybar-redshift/env.sh && ~/.config/polybar/polybar-redshift/redshift.sh temperature
+click-left = source ~/.config/polybar/polybar-redshift/env.sh && ~/.config/polybar/polybar-redshift/redshift.sh toggle
+scroll-up = source ~/.config/polybar/polybar-redshift/env.sh && ~/.config/polybar/polybar-redshift/redshift.sh increase
+scroll-down = source ~/.config/polybar/polybar-redshift/env.sh && ~/.config/polybar/polybar-redshift/redshift.sh decrease
+interval=0.5
+
 
 [module/date]
 type = internal/date
 interval = 5
 
-date = 
+date =
 date-alt = " %Y-%m-%d"
 
 time = "   %a %b %d     %I:%M %p  "
@@ -219,6 +313,16 @@ format-underline = #0a6cf5
 label = %date% %time%
 
 ;lable = %time%
+
+[module/info-cava]
+type = custom/script
+exec = ~/.config/polybar/polybar-scripts/info-cava/info-cava.py -f 230 -b 100 -c average
+tail = true
+
+[module/info-hackspeed]
+type = custom/script
+exec = ~/.config/polybar/polybar-scripts/info-hackspeed/info-hackspeed.sh
+tail = true
 
 [module/volume]
 type = internal/pulseaudio
@@ -304,9 +408,9 @@ screenchange-reload = true
 ;compositing-foreground = source
 ;compositing-border = over
 
-[module/cpu]
+[module/cputop]
 type = internal/cpu
-interval = 2
+interval = 0.5
 format-prefix-foreground = ${colors.foreground-alt}
 format-prefix-background = ${colors.foreground-mod}
 
@@ -322,8 +426,54 @@ format-underline = #f90000
 
 label = %percentage% %
 
+[module/cpu]
+type = internal/cpu
+interval = 0.5
+format = <label> <ramp-coreload>
+label = CPU
+ramp-coreload-0 = ▁
+ramp-coreload-0-font = 2
+ramp-coreload-0-foreground = #aaff77
+ramp-coreload-1 = ▂
+ramp-coreload-1-font = 2
+ramp-coreload-1-foreground = #aaff77
+ramp-coreload-2 = ▃
+ramp-coreload-2-font = 2
+ramp-coreload-2-foreground = #aaff77
+ramp-coreload-3 = ▄
+ramp-coreload-3-font = 2
+ramp-coreload-3-foreground = #aaff77
+ramp-coreload-4 = ▅
+ramp-coreload-4-font = 2
+ramp-coreload-4-foreground = #fba922
+ramp-coreload-5 = ▆
+ramp-coreload-5-font = 2
+ramp-coreload-5-foreground = #fba922
+ramp-coreload-6 = ▇
+ramp-coreload-6-font = 2
+ramp-coreload-6-foreground = #ff5555
+ramp-coreload-7 = █
+ramp-coreload-7-font = 2
+ramp-coreload-7-foreground = #ff5555
 
+[module/memory]
+type = internal/memory
+format = <label> <bar-used>
+label = RAM
 
+bar-used-width = 30
+bar-used-foreground-0 = #aaff77
+bar-used-foreground-1 = #aaff77
+bar-used-foreground-2 = #fba922
+bar-used-foreground-3 = #ff5555
+bar-used-indicator = |
+bar-used-indicator-font = 6
+bar-used-indicator-foreground = #ff
+bar-used-fill = ─
+bar-used-fill-font = 6
+bar-used-empty = ─
+bar-used-empty-font = 6
+bar-used-empty-foreground = #444444
 
 
 
@@ -351,8 +501,8 @@ margin-left =2
 
 [module/title]
 type = internal/xwindow
-format = <label>
-label = %title:0:30:...%
+format =  <label>
+label = %title:0:24:...%
 
 
 format-prefix-foreground = ${colors.foreground-alt}
@@ -364,4 +514,3 @@ format-suffix = "   "
 [global/wm]
 margin-top = 5
 margin-bottom = 5
-

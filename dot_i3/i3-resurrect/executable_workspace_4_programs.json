@@ -1,0 +1,14 @@
+[
+  {
+    "command": [
+      "/usr/lib/firefox/firefox"
+    ],
+    "working_directory": "/home/viv"
+  },
+  {
+    "command": [
+      "/opt/lightcord/lightcord"
+    ],
+    "working_directory": "/home/viv"
+  }
+]
