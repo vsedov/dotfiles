@@ -137,9 +137,9 @@ style = "bold green"
 
 
 [python]
-format = "[$symbol$version]($style) "
+format = 'via [${symbol}${pyenv_prefix}${version}( $virtualenv)]($style) '
 symbol = " "
-style = "italic purple"
+style = "italic Blue"
 
 [rust]
 format = "[$symbol$version]($style) "
