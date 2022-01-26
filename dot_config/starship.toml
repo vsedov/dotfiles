@@ -1,0 +1,154 @@
+# Prompt: param 2 └─
+[character]
+success_symbol = " [╰─λ](bold green)"
+error_symbol = " ➜ (bold red)"
+
+# Username
+[username]
+style_user = "bold dimmed blue"
+
+[hostname]
+ssh_only = false
+format = "<[$hostname]($style)>"
+trim_at = "-"
+style = "bold dimmed white"
+disabled = true
+
+
+[env_var]
+format = "with [$env_value]($style) "
+
+[battery]
+full_symbol = " "
+charging_symbol = " "
+discharging_symbol = " "
+disabled = true
+
+[[battery.display]]
+threshold = 30
+style = "bold red"
+
+# Last param in the first line/row
+[cmd_duration]
+min_time = 1
+format = "took [$duration]($style)"
+disabled = false
+
+# Third param
+[directory]
+format = "[$path]($style)[$lock_symbol]($lock_style) "
+style = "purple"
+truncation_length = 0
+truncate_to_repo = true
+truncation_symbol = "repo: "
+
+[git_branch]
+format = "on [$symbol $branch ]($style)"
+symbol = " "
+style = "bold purple"
+
+[git_commit]
+format = "[\\($hash\\)]($style) [\\($tag\\)]($style)"
+style = "bold green"
+
+[git_status]
+format ='([\[$all_status$ahead_behind\]]($style))'
+conflicted = "="
+ahead =	"⇡${count} "
+behind = "⇣${count} "
+diverged = "⇕⇡${ahead_count}⇣${behind_count}"
+untracked = "?${count} "
+stashed = "$${count} "
+modified = "!${count} "
+staged = "+${count} "
+renamed = "»${count} "
+deleted = "✘${count} "
+style =	"bold red"
+disabled = false
+
+[git_state]
+rebase = "REBASING"
+merge =	"MERGING"
+revert = "REVERTING"
+cherry_pick = "CHERRY-PICKING"
+bisect = "BISECTING"
+am = "AM"
+am_or_rebase = "AM/REBASE"
+style =	"bold yellow"
+format = '\([$state( $progress_current/$progress_total)]($style)\) '
+disabled = false
+
+[hg_branch]
+symbol = ""
+style =	"bold purple"
+format = "on [$symbol$branch]($style) "
+
+[memory_usage]
+format = "via $symbol [${ram}( | ${ram_pct})]($style)"
+symbol = " "
+style = "bold dimmed green"
+
+[nodejs]
+format = "via [$symbol$version]($style) "
+symbol = "⬢ "
+style = "bold green"
+disabled = false
+not_capable_style = "bold red"
+
+
+[docker_context]
+symbol = " "
+
+[conda]
+symbol = " "
+
+[dart]
+symbol = " "
+
+[package]
+symbol = " "
+
+[perl]
+symbol = " "
+
+[php]
+symbol = " "
+
+
+[ruby]
+symbol = " "
+
+[java]
+symbol = " "
+
+[lua]
+symbol = " "
+style = "bold blue"
+
+
+[swift]
+symbol = "ﯣ "
+
+[julia]
+format = "[$symbol$version]($style) "
+symbol = "ஃ "
+style = "bold green"
+
+
+
+[python]
+format = "[$symbol$version]($style) "
+symbol = " "
+style = "italic purple"
+
+[rust]
+format = "[$symbol$version]($style) "
+# style = "bold green"
+symbol = " "
+
+# Prompt: optional param 1
+[time]
+format = "$time($style)\n"
+time_format = "%T"
+style = "bright-white"
+disabled = true

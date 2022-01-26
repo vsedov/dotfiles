@@ -1,14 +1,10 @@
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# fi
 
-
-#!/bin/zsh
-
-### Added by Zinit's installer
 ZINIT_DIR="$HOME/.local/share/zinit"
 ZINIT_HOME="$ZINIT_DIR/zinit.git"
 if [[ ! -f $ZINIT_HOME/zinit.zsh ]]; then
@@ -26,7 +22,7 @@ autoload -Uz _zinit
 
 # Load .zsh_pre if available
 zinit is-snippet for if"[[ -f $HOME/.zsh_pre ]]" $HOME/.zsh_pre
-zinit ice depth=1; zinit light romkatv/powerlevel10k
+
 ############
 # DOTFILES #
 ############
@@ -38,7 +34,6 @@ export DOTFILES=${DOTFILES:=$HOME/.dotfiles}
 zinit lucid for \
     as"command" from"gh-r" atload'eval "$(starship init zsh)"' bpick'*unknown-linux-gnu*' \
     starship/starship \
-
 ##########################
 # OMZ Libs and Plugins   #
 ##########################
@@ -48,13 +43,12 @@ zinit lucid for \
 # Otherwise something will look messed up
 # ie. some settings help zsh-autosuggestions to clear after tab completion
 
-setopt promptsubst
 
 # Explanation:
 # - Loading tmux first, to prevent jumps when tmux is loaded after .zshrc
 # - History plugin is loaded early (as it has some defaults) to prevent empty history stack for other plugins
 
-
+# OMZL::history.zsh \
 zinit wait lucid for \
   OMZL::clipboard.zsh \
   OMZL::compfix.zsh \
@@ -192,9 +186,11 @@ zinit wait'0a' lucid is-snippet for \
     $HOME/.dotrc/*.zsh \
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=1000
 setopt SHARE_HISTORY
+POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=false
+#
