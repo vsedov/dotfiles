@@ -4,7 +4,6 @@
 # if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
 #   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 # fi
-
 ZINIT_DIR="$HOME/.local/share/zinit"
 ZINIT_HOME="$ZINIT_DIR/zinit.git"
 if [[ ! -f $ZINIT_HOME/zinit.zsh ]]; then
@@ -37,6 +36,10 @@ zinit lucid for \
 ##########################
 # OMZ Libs and Plugins   #
 ##########################
+# make'!...' -> run make before atclone & atpull
+zinit as"program" make'!' atclone'./direnv hook zsh > zhook.zsh' \
+    atpull'%atclone' pick"direnv" src"zhook.zsh" for \
+        direnv/direnv
 
 # IMPORTANT:
 # Ohmyzsh plugins and libs are loaded first as some these sets some defaults which are required later on.
@@ -112,10 +115,7 @@ zinit wait lucid for \
     light-mode atinit"ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20" atload"_zsh_autosuggest_start" \
         zsh-users/zsh-autosuggestions \
     light-mode atinit"
-        typeset -gA FAST_HIGHLIGHT;
-        FAST_HIGHLIGHT[git-cmsg-len]=100;
-        zpcompinit;
-        zpcdreplay;
+        ZINIT[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay
     " \
         zdharma-continuum/fast-syntax-highlighting \
     bindmap"^R -> ^H" atinit"
@@ -193,4 +193,5 @@ HISTSIZE=10000
 SAVEHIST=1000
 setopt SHARE_HISTORY
 POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=false
+eval "$(direnv hook zsh)"
 #
