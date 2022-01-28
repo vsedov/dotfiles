@@ -8,6 +8,33 @@
 
 -- Use namespace "_jbgyampcwu" to avoid possible conflicts
 -- Rely on mp.utils functions, they may be removed in future mpv versions
+--
+-- Class reference: https://www.lua.org/pil/16.1.html
+
+-- Define Class: PlatformInformation
+-- Determine OS type and provide corresponding variable value
+PlatformInformation_jbgyampcwu = {
+  -- https://mpv.io/manual/stable/#string-list-and-path-list-options
+  PathListSeparator = nil,
+}
+function PlatformInformation_jbgyampcwu:new(o, pathListSeparator)
+  o = o or {}
+  setmetatable(o, self)
+  self.__index = self
+
+  local osEnv = os.getenv("OS")
+  -- osEnv = ""
+
+  -- Windows 10
+  if osEnv == "Windows_NT" then
+    self.PathListSeparator = pathListSeparator or ";"
+    -- All other OS goes here
+  else
+    self.PathListSeparator = pathListSeparator or ":"
+  end
+
+  return o
+end
 
 -- Return indicator file exist or not, and indicator file full path
 --
@@ -46,10 +73,10 @@ function sendAnime4kCommand_jbgyampcwu()
   -- If you have your own string, paste it here
   -- For complex primary mode (AA or BB or CA, etc)
   --   also paste it here and edit manually for customization.
-  local userCommand2160P = ""
-  local userCommand1440P = ""
-  local userCommand1080P = ""
-  local userCommand720P = ""
+  local userCommand2160P = "AA"
+  local userCommand1440P = "AA"
+  local userCommand1080P = "AA"
+  local userCommand720P = "BB"
   local userCommand480P = ""
 
   local useUserInputCommand = false
@@ -58,10 +85,10 @@ function sendAnime4kCommand_jbgyampcwu()
   -- See "Best Practices" section
   -- https://github.com/bloc97/Anime4K/blob/master/GLSL_Instructions.md
   local restoreCnnQuality = "M"
-  local restoreCnnSoftQuality = "S"
+  local restoreCnnSoftQuality = "M"
   local upscaleCnnX2Quality = "M"
-  local upscaleCnnX2ndQuality = "S"
-  local upscaleDenoiseCnnX2Quality = "S"
+  local upscaleCnnX2Quality_2 = "S"
+  local upscaleDenoiseCnnX2Quality = "M"
 
   local useClampHighlights = true
 
@@ -74,18 +101,30 @@ function sendAnime4kCommand_jbgyampcwu()
   --
 
   -- Const
+  local platformInformation = PlatformInformation_jbgyampcwu:new()
+  local pathListSeparator = platformInformation.PathListSeparator
   local commandPrefixConst = "no-osd change-list glsl-shaders set "
-  local commandShowTextConst = "; show-text "
+  local commandShowTextConst = ";" .. " show-text "
   local commandShowTextContentConst = "Anime4K: Scripted"
 
   -- Shader path
-  local clampHighlightsPath = "~~/shaders/Anime4K_Clamp_Highlights.glsl:"
-  local restoreCnnPath = "~~/shaders/Anime4K_Restore_CNN_" .. restoreCnnQuality .. ".glsl:"
-  local restoreCnnSoftPath = "~~/shaders/Anime4K_Restore_CNN_Soft_" .. restoreCnnSoftQuality .. ".glsl:"
-  local upscaleCnnX2Path = "~~/shaders/Anime4K_Upscale_CNN_x2_" .. upscaleCnnX2Quality .. ".glsl:"
-  local upscaleDenoiseCnnX2Path = "~~/shaders/Anime4K_Upscale_Denoise_CNN_x2_" .. upscaleDenoiseCnnX2Quality .. ".glsl:"
-  local autoDownscalePreX2Path = "~~/shaders/Anime4K_AutoDownscalePre_x2.glsl:"
-  local autoDownscalePreX4Path = "~~/shaders/Anime4K_AutoDownscalePre_x4.glsl:"
+  local clampHighlightsPath = "~~/shaders/Anime4K_Clamp_Highlights.glsl" .. pathListSeparator
+  local restoreCnnPath = "~~/shaders/Anime4K_Restore_CNN_" .. restoreCnnQuality .. ".glsl" .. pathListSeparator
+  local restoreCnnSoftPath = "~~/shaders/Anime4K_Restore_CNN_Soft_"
+    .. restoreCnnSoftQuality
+    .. ".glsl"
+    .. pathListSeparator
+  local upscaleCnnX2Path = "~~/shaders/Anime4K_Upscale_CNN_x2_" .. upscaleCnnX2Quality .. ".glsl" .. pathListSeparator
+  local upscaleCnnX2Path_2 = "~~/shaders/Anime4K_Upscale_CNN_x2_"
+    .. upscaleCnnX2Quality_2
+    .. ".glsl"
+    .. pathListSeparator
+  local upscaleDenoiseCnnX2Path = "~~/shaders/Anime4K_Upscale_Denoise_CNN_x2_"
+    .. upscaleDenoiseCnnX2Quality
+    .. ".glsl"
+    .. pathListSeparator
+  local autoDownscalePreX2Path = "~~/shaders/Anime4K_AutoDownscalePre_x2.glsl" .. pathListSeparator
+  local autoDownscalePreX4Path = "~~/shaders/Anime4K_AutoDownscalePre_x4.glsl" .. pathListSeparator
 
   -- Generate Anime4K command
 
@@ -94,33 +133,13 @@ function sendAnime4kCommand_jbgyampcwu()
     .. upscaleCnnX2Path
     .. autoDownscalePreX2Path
     .. autoDownscalePreX4Path
-    .. upscaleCnnX2ndQuality
+    .. upscaleCnnX2Path_2
   local modeBCommand = restoreCnnSoftPath
     .. upscaleCnnX2Path
     .. autoDownscalePreX2Path
     .. autoDownscalePreX4Path
-    .. upscaleCnnX2ndQuality
-  local modeCCommand = upscaleDenoiseCnnX2Path
-    .. autoDownscalePreX2Path
-    .. autoDownscalePreX4Path
-    .. upscaleCnnX2ndQuality
-  local modeAACommand = restoreCnnPath
-    .. upscaleCnnX2Path
-    .. restoreCnnPath
-    .. autoDownscalePreX2Path
-    .. autoDownscalePreX4Path
-    .. upscaleCnnX2ndQuality
-  local modeBBCommand = restoreCnnSoftPath
-    .. upscaleCnnX2Path
-    .. autoDownscalePreX2Path
-    .. autoDownscalePreX4Path
-    .. restoreCnnSoftPath
-    .. upscaleCnnX2ndQuality
-  local modeCACommand = upscaleDenoiseCnnX2Path
-    .. autoDownscalePreX2Path
-    .. autoDownscalePreX4Path
-    .. restoreCnnPath
-    .. upscaleCnnX2ndQuality
+    .. upscaleCnnX2Path_2
+  local modeCCommand = upscaleDenoiseCnnX2Path .. autoDownscalePreX2Path .. autoDownscalePreX4Path .. upscaleCnnX2Path_2
 
   -- Add details on primary mode string to finalize
   function getAnime4KFullCommand(primaryModeString, debugText)
@@ -148,6 +167,8 @@ function sendAnime4kCommand_jbgyampcwu()
       .. debugText
       .. '"'
 
+    -- DEBUG
+    --print(primaryModeString)
     return primaryModeString
   end
 
@@ -162,6 +183,8 @@ function sendAnime4kCommand_jbgyampcwu()
   -- Get video height as int
   local videoHeightString = mp.get_property("height")
   local videoHeightInt = tonumber(videoHeightString)
+  -- DEBUG
+  --videoHeightInt = 1080
 
   -- Prepare final command, will send to mpv
   local finalCommand
@@ -197,7 +220,7 @@ function sendAnime4kCommand_jbgyampcwu()
     if useUserInputCommand then
       finalCommand = userCommand1080P
     else
-      finalCommand = getAnime4KFullCommand(modeACommand, " A")
+      finalCommand = getAnime4KFullCommand(modeACommand, " A+A")
     end
 
     mp.command(finalCommand)
@@ -209,7 +232,7 @@ function sendAnime4kCommand_jbgyampcwu()
     if useUserInputCommand then
       finalCommand = userCommand720P
     else
-      finalCommand = getAnime4KFullCommand(modeBCommand, " B")
+      finalCommand = getAnime4KFullCommand(modeBCommand, " A+A")
     end
 
     mp.command(finalCommand)
@@ -221,7 +244,7 @@ function sendAnime4kCommand_jbgyampcwu()
     if useUserInputCommand then
       finalCommand = userCommand480P
     else
-      finalCommand = getAnime4KFullCommand(modeCCommand, " C")
+      finalCommand = getAnime4KFullCommand(modeCCommand, " A+A")
     end
 
     mp.command(finalCommand)
@@ -266,8 +289,12 @@ function inputCommandEvent_jbgyampcwu()
       os.remove(indicatorFileFullPath)
     end)
 
+    -- Const
+    local platformInformation = PlatformInformation_jbgyampcwu:new()
+    local pathListSeparator = platformInformation.PathListSeparator
+
     -- Clear glsl
-    mp.command('no-osd change-list glsl-shaders clr ""; show-text "GLSL shaders cleared"')
+    mp.command('no-osd change-list glsl-shaders clr "" ; show-text "GLSL shaders cleared"')
   end
 end
 
