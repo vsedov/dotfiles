@@ -67,8 +67,7 @@ exec_always --no-startup-id i3-msg "workspace $ws1; append_layout /home/viv/.i3/
 exec  kitty --title matrix -e zsh -c 'ranger'
 exec  kitty --title cava -e zsh -c 'cava'
 exec  kitty --title neo -e zsh -c 'srfetch && zsh'
-exec  kitty --title htop -e zsh -c 'gotop -a'
-
+exec  kitty --title htop -e zsh -c 'gotop -p -a'
 
 exec --no-startup-id xrandr --output DP-0 --mode 1920x1080 --rate 240.00
 
@@ -79,7 +78,6 @@ exec --no-startup-id xrandr --output DP-0 --mode 1920x1080 --rate 240.00
 #DP-0
 
 #HDMI-0
-
 
 
 # Variables {{{
@@ -427,11 +425,11 @@ bindsym XF86AudioMute exec amixer -q -D pulse sset Master toggle;
 
 
 exec pasystray
-exec /usr/bin/discord
+exec /usr/bin/discord --no-sandbox
 exec /usr/bin/subl
 exec /usr/bin/franz
 exec /usr/bin/lampe-gtk
-exec /usr/bin/binance
+#exec /usr/bin/binance
 
 
 # exec  "sh -c 'sleep 50; exec redshift-gtk'"
@@ -450,77 +448,3 @@ exec  "sh -c 'sleep 15; exec pulseeffects'"
 #39
 #50
 #60
-
-
-
-set $i3_resurrect i3-resurrect
-# Save workspace mode.
-mode "save" {
-  bindsym 1 exec "$i3_resurrect save -w 1: --swallow=class,instance,title"
-  bindsym 2 exec "$i3_resurrect save -w 2: --swallow=class,instance,title"
-  bindsym 3 exec "$i3_resurrect save -w 3: --swallow=class,instance,title"
-  bindsym 4 exec "$i3_resurrect save -w 4: --swallow=class,instance,title"
-  bindsym 5 exec "$i3_resurrect save -w 5: --swallow=class,instance,title"
-  bindsym 6 exec "$i3_resurrect save -w 6: --swallow=class,instance,title"
-  bindsym 7 exec "$i3_resurrect save -w 7: --swallow=class,instance,title"
-  bindsym 8 exec "$i3_resurrect save -w 8: --swallow=class,instance,title"
-  bindsym 9 exec "$i3_resurrect save -w 9: --swallow=class,instance,title"
-  bindsym 0 exec "$i3_resurrect save -w 0: --swallow=class,instance,title"
-  bindsym F1 exec "$i3_resurrect save -w 11: --swallow=class,instance,title"
-  bindsym F2 exec "$i3_resurrect save -w 12: --swallow=class,instance,title"
-  bindsym F3 exec "$i3_resurrect save -w 13: --swallow=class,instance,title"
-  bindsym F4 exec "$i3_resurrect save -w 14: --swallow=class,instance,title"
-  bindsym F5 exec "$i3_resurrect save -w 15: --swallow=class,instance,title"
-
-  # Back to normal: Enter, Escape, or s
-  bindsym Return mode "default"
-  bindsym Escape mode "default"
-  bindsym s mode "default"
-  bindsym $mod+s mode "default"
-}
-
-bindsym $mod+s mode "save"
-
-# Restore workspace mode.
-mode "restore" {
-  bindsym 1 exec "$i3_resurrect restore  -w 1: --programs-only"
-  bindsym 2 exec "$i3_resurrect restore  -w 2: --programs-only"
-  bindsym 3 exec "$i3_resurrect restore  -w 3: --programs-only"
-  bindsym 4 exec "$i3_resurrect restore  -w 4: --programs-only"
-  bindsym 5 exec "$i3_resurrect restore  -w 5: --programs-only"
-  bindsym 6 exec "$i3_resurrect restore  -w 6: --programs-only"
-  bindsym 7 exec "$i3_resurrect restore  -w 7: --programs-only"
-  bindsym 8 exec "$i3_resurrect restore  -w 8: --programs-only"
-  bindsym 9 exec "$i3_resurrect restore  -w 9: --programs-only"
-  bindsym 0 exec "$i3_resurrect restore  -w 0: --programs-only"
-  bindsym F1 exec "$i3_resurrect restore -w 11: --programs-only"
-  bindsym F2 exec "$i3_resurrect restore -w 12: --programs-only"
-  bindsym F3 exec "$i3_resurrect restore -w 13: -programs-only"
-  bindsym F4 exec "$i3_resurrect restore -w 14: --programs-only"
-  bindsym F5 exec "$i3_resurrect restore -w 15: --programs-only"
-
-  bindsym $mod+1 exec "$i3_resurrect restore -w 1: --layout-only"
-  bindsym $mod+2 exec "$i3_resurrect restore -w 2: --layout-only"
-  bindsym $mod+3 exec "$i3_resurrect restore -w 3: --layout-only"
-  bindsym $mod+4 exec "$i3_resurrect restore -w 4: --layout-only"
-  bindsym $mod+5 exec "$i3_resurrect restore -w 5: --layout-only"
-  bindsym $mod+6 exec "$i3_resurrect restore -w 6: --layout-only"
-  bindsym $mod+7 exec "$i3_resurrect restore -w 7: --layout-only"
-  bindsym $mod+8 exec "$i3_resurrect restore -w 8: --layout-only"
-  bindsym $mod+9 exec "$i3_resurrect restore -w 9: --layout-only"
-  bindsym $mod+0 exec "$i3_resurrect restore -w 0: --layout-only"
-  bindsym $mod+F1 exec "$i3_resurrect restore -w 11: --layout-only"
-  bindsym $mod+F2 exec "$i3_resurrect restore -w 12: --layout-only"
-  bindsym $mod+F3 exec "$i3_resurrect restore -w 13: --layout-only"
-  bindsym $mod+F4 exec "$i3_resurrect restore -w 14: --layout-only"
-  bindsym $mod+F5 exec "$i3_resurrect restore -w 15: --layout-only"
-
-  # Back to normal: Enter, Escape, or n
-  bindsym Return mode "default"
-  bindsym Escape mode "default"
-  bindsym n mode "default"
-  bindsym $mod+n mode "default"
-}
-
-bindsym $mod+m mode "restore"
-for_window [class="Frame"] floating disable
