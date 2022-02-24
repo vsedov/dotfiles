@@ -1,6 +1,6 @@
 # Prompt: param 2 └─
 [character]
-success_symbol = " [╰─λ](bold green)"
+success_symbol = " [╰─λ](bold bright-purple)"
 error_symbol = " ➜ (bold red)"
 
 # Username
@@ -58,7 +58,6 @@ ahead =	"⇡${count} "
 behind = "⇣${count} "
 diverged = "⇕⇡${ahead_count}⇣${behind_count}"
 untracked = "?${count} "
-stashed = "$${count} "
 modified = "!${count} "
 staged = "+${count} "
 renamed = "»${count} "
