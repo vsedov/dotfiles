@@ -131,10 +131,9 @@ class PlayerManager:
     # Get latest player that's currently playing
     def getCurrentPlayer(self):
         playing_players = [
-            player_owner for player_owner in self.getSortedPlayerOwnerList()
-            if
-                self.players[player_owner].status == 'playing' or
-                self.players[player_owner].status == 'paused'
+            player_owner
+            for player_owner in self.getSortedPlayerOwnerList()
+            if self.players[player_owner].status in ['playing', 'paused']
         ]
         return self.players[playing_players[0]] if playing_players else None
 
@@ -271,41 +270,42 @@ class Player:
         self.__print(status, self)
 
     def _parseMetadata(self):
-        if self._metadata != None:
-            # Obtain properties from _metadata
-            _artist     = _getProperty(self._metadata, 'xesam:artist', [''])
-            _album      = _getProperty(self._metadata, 'xesam:album', '')
-            _title      = _getProperty(self._metadata, 'xesam:title', '')
-            _track      = _getProperty(self._metadata, 'xesam:trackNumber', '')
-            _genre      = _getProperty(self._metadata, 'xesam:genre', [''])
-            _disc       = _getProperty(self._metadata, 'xesam:discNumber', '')
-            _length     = _getProperty(self._metadata, 'xesam:length', 0) or _getProperty(self._metadata, 'mpris:length', 0)
-            _length_int = _length if type(_length) is int else int(float(_length))
-            _fmt_length = ( # Formats using h:mm:ss if length > 1 hour, else m:ss
-                f'{_length_int/1e6//60:.0f}:{_length_int/1e6%60:02.0f}'
-                if _length_int < 3600*1e6 else
-                f'{_length_int/1e6//3600:.0f}:{_length_int/1e6%3600//60:02.0f}:{_length_int/1e6%60:02.0f}'
-            )
-            _date       = _getProperty(self._metadata, 'xesam:contentCreated', '')
-            _year       = _date[0:4] if len(_date) else ''
-            _url        = _getProperty(self._metadata, 'xesam:url', '')
-            _cover      = _getProperty(self._metadata, 'xesam:artUrl', '') or _getProperty(self._metadata, 'mpris:artUrl', '')
-            _duration   = _getDuration(_length_int)
-            # Update metadata
-            self.metadata['artist']     = re.sub(SAFE_TAG_REGEX, """\1\1""", _metadataGetFirstItem(_artist))
-            self.metadata['album']      = re.sub(SAFE_TAG_REGEX, """\1\1""", _metadataGetFirstItem(_album))
-            self.metadata['title']      = re.sub(SAFE_TAG_REGEX, """\1\1""", _metadataGetFirstItem(_title))
-            self.metadata['track']      = _track
-            self.metadata['genre']      = re.sub(SAFE_TAG_REGEX, """\1\1""", _metadataGetFirstItem(_genre))
-            self.metadata['disc']       = _disc
-            self.metadata['date']       = re.sub(SAFE_TAG_REGEX, """\1\1""", _date)
-            self.metadata['year']       = re.sub(SAFE_TAG_REGEX, """\1\1""", _year)
-            self.metadata['url']        = _url
-            self.metadata['filename']   = os.path.basename(_url)
-            self.metadata['length']     = _length_int
-            self.metadata['fmt-length'] = _fmt_length
-            self.metadata['cover']      = re.sub(SAFE_TAG_REGEX, """\1\1""", _metadataGetFirstItem(_cover))
-            self.metadata['duration']   = _duration
+        if self._metadata is None:
+            return
+        # Obtain properties from _metadata
+        _artist     = _getProperty(self._metadata, 'xesam:artist', [''])
+        _album      = _getProperty(self._metadata, 'xesam:album', '')
+        _title      = _getProperty(self._metadata, 'xesam:title', '')
+        _track      = _getProperty(self._metadata, 'xesam:trackNumber', '')
+        _genre      = _getProperty(self._metadata, 'xesam:genre', [''])
+        _disc       = _getProperty(self._metadata, 'xesam:discNumber', '')
+        _length     = _getProperty(self._metadata, 'xesam:length', 0) or _getProperty(self._metadata, 'mpris:length', 0)
+        _length_int = _length if type(_length) is int else int(float(_length))
+        _fmt_length = ( # Formats using h:mm:ss if length > 1 hour, else m:ss
+            f'{_length_int/1e6//60:.0f}:{_length_int/1e6%60:02.0f}'
+            if _length_int < 3600*1e6 else
+            f'{_length_int/1e6//3600:.0f}:{_length_int/1e6%3600//60:02.0f}:{_length_int/1e6%60:02.0f}'
+        )
+        _date       = _getProperty(self._metadata, 'xesam:contentCreated', '')
+        _year = _date[:4] if len(_date) else ''
+        _url        = _getProperty(self._metadata, 'xesam:url', '')
+        _cover      = _getProperty(self._metadata, 'xesam:artUrl', '') or _getProperty(self._metadata, 'mpris:artUrl', '')
+        _duration   = _getDuration(_length_int)
+        # Update metadata
+        self.metadata['artist']     = re.sub(SAFE_TAG_REGEX, """\1\1""", _metadataGetFirstItem(_artist))
+        self.metadata['album']      = re.sub(SAFE_TAG_REGEX, """\1\1""", _metadataGetFirstItem(_album))
+        self.metadata['title']      = re.sub(SAFE_TAG_REGEX, """\1\1""", _metadataGetFirstItem(_title))
+        self.metadata['track']      = _track
+        self.metadata['genre']      = re.sub(SAFE_TAG_REGEX, """\1\1""", _metadataGetFirstItem(_genre))
+        self.metadata['disc']       = _disc
+        self.metadata['date']       = re.sub(SAFE_TAG_REGEX, """\1\1""", _date)
+        self.metadata['year']       = re.sub(SAFE_TAG_REGEX, """\1\1""", _year)
+        self.metadata['url']        = _url
+        self.metadata['filename']   = os.path.basename(_url)
+        self.metadata['length']     = _length_int
+        self.metadata['fmt-length'] = _fmt_length
+        self.metadata['cover']      = re.sub(SAFE_TAG_REGEX, """\1\1""", _metadataGetFirstItem(_cover))
+        self.metadata['duration']   = _duration
 
     def onMetadataChanged(self, track_id, metadata):
         self.refreshMetadata()
@@ -380,10 +380,9 @@ class Player:
             reversed_tag = True
 
         if format is None:
-            tag_is_format_match = re.match(FORMAT_TAG_REGEX, tag)
-            if tag_is_format_match:
-                format = tag_is_format_match.group('format')
-                formatlen = tag_is_format_match.group('formatlen')
+            if tag_is_format_match := re.match(FORMAT_TAG_REGEX, tag):
+                format = tag_is_format_match['format']
+                formatlen = tag_is_format_match['formatlen']
                 tag_found = True
         if format is not None:
             text = text.format_map(CleanSafeDict(**metadata))
@@ -394,16 +393,13 @@ class Player:
                 formatlen = int(formatlen)
                 if len(text) > formatlen:
                     text = text[:max(formatlen - len(TRUNCATE_STRING), 0)] + TRUNCATE_STRING
-        if tag_found is False and tag in metadata and len(metadata[tag]):
+        if not tag_found and tag in metadata and len(metadata[tag]):
             tag_found = True
 
         if reversed_tag:
             tag_found = not tag_found
 
-        if tag_found:
-            return text
-        else:
-            return ''
+        return text if tag_found else ''
 
     def printStatus(self):
         if self.status in [ 'playing', 'paused' ]:
@@ -429,23 +425,22 @@ def _dbusValueToPython(value):
         return [ _dbusValueToPython(item) for item in value ]
     elif isinstance(value, dbus.Boolean):
         return int(value) == 1
-    elif (
-        isinstance(value, dbus.Byte) or
-        isinstance(value, dbus.Int16) or
-        isinstance(value, dbus.UInt16) or
-        isinstance(value, dbus.Int32) or
-        isinstance(value, dbus.UInt32) or
-        isinstance(value, dbus.Int64) or
-        isinstance(value, dbus.UInt64)
+    elif isinstance(
+        value,
+        (
+            dbus.Byte,
+            dbus.Int16,
+            dbus.UInt16,
+            dbus.Int32,
+            dbus.UInt32,
+            dbus.Int64,
+            dbus.UInt64,
+        ),
     ):
         return int(value)
     elif isinstance(value, dbus.Double):
         return float(value)
-    elif (
-        isinstance(value, dbus.ObjectPath) or
-        isinstance(value, dbus.Signature) or
-        isinstance(value, dbus.String)
-    ):
+    elif isinstance(value, (dbus.ObjectPath, dbus.Signature, dbus.String)):
         return unquote(str(value))
 
 def _getProperty(properties, property, default = None):
@@ -543,11 +538,18 @@ else:
     elif args.command == 'status' and current_player:
         current_player.printStatus()
     elif args.command == 'list':
-        print("\n".join(sorted([
-            "{} : {}".format(player.bus_name.split('.')[3], player.status)
-            for player in player_manager.players.values() ])))
+        print(
+            "\n".join(
+                sorted(
+                    [
+                        f"{player.bus_name.split('.')[3]} : {player.status}"
+                        for player in player_manager.players.values()
+                    ]
+                )
+            )
+        )
     elif args.command == 'current' and current_player:
-        print("{} : {}".format(current_player.bus_name.split('.')[3], current_player.status))
+        print(f"{current_player.bus_name.split('.')[3]} : {current_player.status}")
     elif args.command == 'metadata' and current_player:
         print(_dbusValueToPython(current_player._metadata))
     elif args.command == 'raise' and current_player:
