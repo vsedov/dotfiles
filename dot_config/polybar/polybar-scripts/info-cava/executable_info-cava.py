@@ -16,14 +16,10 @@ if len(sys.argv) > 1 and sys.argv[1] == "--subproc":
     while True:
         cava_input = input().strip().split()
         cava_input = [int(i) for i in cava_input]
-        output = ""
-        for bar in cava_input:
-            if bar < len(ramp_list):
-                output += ramp_list[bar]
-
-            else:
-                output += ramp_list[-1]
-
+        output = "".join(
+            ramp_list[bar] if bar < len(ramp_list) else ramp_list[-1]
+            for bar in cava_input
+        )
         print(output)
 
 parser = argparse.ArgumentParser()

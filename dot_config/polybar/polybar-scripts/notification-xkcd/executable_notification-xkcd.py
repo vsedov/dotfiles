@@ -24,7 +24,7 @@ def useFile(doc, mode, write):
 		f.close()
 
 try:
-	latest = int(useFile(latest_file, 'r', '')[0:4])
+	latest = int(useFile(latest_file, 'r', '')[:4])
 except FileNotFoundError:
 	useFile(latest_file, 'x', "2350")
 	latest = 2350
@@ -32,7 +32,7 @@ except FileNotFoundError:
 newComic = False
 while True:
 	try:
-		status = requests.get('https://www.xkcd.com/' + str(latest + 1) + '/').status_code
+		status = requests.get(f'https://www.xkcd.com/{str(latest + 1)}/').status_code
 	except requests.exceptions.ConnectionError:
 		status = 404
 
@@ -45,14 +45,14 @@ while True:
 
 		if useFile(latest_file, 'r', '')[4:] == 'Unread':
 			toPrint = "New: "
-	
+
 		if read:
 			toPrint = ""
-			useFile(latest_file, 'w', str(latest) + 'Read')
+			useFile(latest_file, 'w', f'{str(latest)}Read')
 		elif newComic:
-			useFile(latest_file, 'w', str(latest) + 'Unread')
+			useFile(latest_file, 'w', f'{str(latest)}Unread')
 			toPrint = "New: "
-		
+
 		toPrint += str(latest)
 		print(icon + toPrint)
 		break
